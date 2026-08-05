@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 
+import { FloatingContact, SiteFooter, SiteHeader } from '@/components/layout';
 import { FacebookPixel } from '@/components/tracking/FacebookPixel';
 import { GoogleTagManager, GoogleTagManagerNoscript } from '@/components/tracking/GoogleTagManager';
 import { defaultMetadata } from '@/lib/seo';
@@ -20,6 +21,9 @@ const geistMono = Geist_Mono({
   display: 'swap',
 });
 
+const hasGoogleTracking = Boolean(process.env.NEXT_PUBLIC_GTM_ID || process.env.NEXT_PUBLIC_GA_ID);
+const hasFacebookTracking = Boolean(process.env.NEXT_PUBLIC_FB_PIXEL_ID);
+
 export const metadata: Metadata = {
   ...defaultMetadata,
 };
@@ -28,18 +32,25 @@ export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
   maximumScale: 5,
-  themeColor: '#ee0033', // Viettel brand color
+  themeColor: '#e60012',
 };
 
 export default function RootLayout({ children }: LayoutProps<'/'>) {
   return (
     <html lang="vi" className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}>
       <head>
-        {/* DNS prefetch for performance */}
-        <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
-        <link rel="dns-prefetch" href="https://www.google-analytics.com" />
-        <link rel="dns-prefetch" href="https://connect.facebook.net" />
-        <link rel="preconnect" href="https://www.googletagmanager.com" crossOrigin="anonymous" />
+        {hasGoogleTracking && (
+          <>
+            <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+            <link rel="dns-prefetch" href="https://www.google-analytics.com" />
+            <link
+              rel="preconnect"
+              href="https://www.googletagmanager.com"
+              crossOrigin="anonymous"
+            />
+          </>
+        )}
+        {hasFacebookTracking && <link rel="dns-prefetch" href="https://connect.facebook.net" />}
 
         {/* Structured Data */}
         <OrganizationJsonLd />
@@ -47,7 +58,18 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
       </head>
       <body className="flex min-h-full flex-col">
         <GoogleTagManagerNoscript />
-        {children}
+        <a
+          href="#main-content"
+          className="bg-primary text-primary-foreground fixed top-3 left-3 z-[100] -translate-y-20 rounded-md px-4 py-2 text-sm font-bold transition-transform focus:translate-y-0"
+        >
+          Chuyển đến nội dung chính
+        </a>
+        <SiteHeader />
+        <div id="main-content" className="flex flex-1 flex-col" tabIndex={-1}>
+          {children}
+        </div>
+        <SiteFooter />
+        <FloatingContact />
 
         {/* Tracking scripts - loaded after page interactive */}
         <GoogleTagManager />

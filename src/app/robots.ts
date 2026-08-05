@@ -1,6 +1,6 @@
 import type { MetadataRoute } from 'next';
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://viettel-ninhbinh.vn';
+import { seoConfig } from '@/config/seo';
 
 export default function robots(): MetadataRoute.Robots {
   return {
@@ -11,6 +11,7 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ['/api/', '/admin/'],
       },
     ],
-    sitemap: `${SITE_URL}/sitemap.xml`,
+    sitemap: `${seoConfig.url}/sitemap.xml`,
+    host: seoConfig.url,
   };
 }

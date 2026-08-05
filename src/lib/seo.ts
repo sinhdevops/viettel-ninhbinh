@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://viettel-ninhbinh.vn';
-const SITE_NAME = 'Viettel Ninh Bình';
+import { absoluteUrl, seoConfig } from '@/config/seo';
 
 interface SEOProps {
   title: string;
@@ -34,43 +33,41 @@ export function generateMetadata({
   noIndex = false,
   keywords = [],
 }: SEOProps): Metadata {
-  const url = `${SITE_URL}${path}`;
-  const ogImage = image || `${SITE_URL}/og-image.jpg`;
+  const url = absoluteUrl(path || '/');
+  const ogImage = image ? absoluteUrl(image) : undefined;
+  const googleVerification = process.env.NEXT_PUBLIC_GOOGLE_VERIFICATION;
+  const facebookVerification = process.env.NEXT_PUBLIC_FB_DOMAIN_VERIFICATION;
 
   return {
     title: {
       default: title,
-      template: `%s | ${SITE_NAME}`,
+      template: `%s | ${seoConfig.name}`,
     },
     description,
-    keywords: [SITE_NAME, ...keywords],
-    authors: [{ name: SITE_NAME }],
-    creator: SITE_NAME,
-    metadataBase: new URL(SITE_URL),
+    keywords,
+    applicationName: seoConfig.name,
+    authors: [{ name: seoConfig.name, url: seoConfig.url }],
+    creator: seoConfig.name,
+    publisher: seoConfig.name,
+    category: 'technology',
+    metadataBase: new URL(seoConfig.url),
     alternates: {
       canonical: url,
     },
     openGraph: {
       type: 'website',
-      locale: 'vi_VN',
+      locale: seoConfig.locale,
       url,
       title,
       description,
-      siteName: SITE_NAME,
-      images: [
-        {
-          url: ogImage,
-          width: 1200,
-          height: 630,
-          alt: title,
-        },
-      ],
+      siteName: seoConfig.name,
+      ...(ogImage ? { images: [{ url: ogImage, alt: title }] } : {}),
     },
     twitter: {
       card: 'summary_large_image',
       title,
       description,
-      images: [ogImage],
+      ...(ogImage ? { images: [ogImage] } : {}),
     },
     robots: noIndex
       ? { index: false, follow: false }
@@ -85,13 +82,15 @@ export function generateMetadata({
             'max-snippet': -1,
           },
         },
-    verification: {
-      google: process.env.NEXT_PUBLIC_GOOGLE_VERIFICATION || '',
-      // facebook domain verification for ads
-      other: {
-        'facebook-domain-verification': process.env.NEXT_PUBLIC_FB_DOMAIN_VERIFICATION || '',
-      },
-    },
+    verification:
+      googleVerification || facebookVerification
+        ? {
+            ...(googleVerification ? { google: googleVerification } : {}),
+            ...(facebookVerification
+              ? { other: { 'facebook-domain-verification': facebookVerification } }
+              : {}),
+          }
+        : undefined,
   };
 }
 
@@ -99,14 +98,7 @@ export function generateMetadata({
  * Default metadata for the site root.
  */
 export const defaultMetadata = generateMetadata({
-  title: `${SITE_NAME} - Lắp mạng Viettel tại Ninh Bình`,
-  description:
-    'Đăng ký lắp đặt mạng Internet, truyền hình Viettel tại Ninh Bình. Ưu đãi hấp dẫn, tốc độ cao, lắp đặt miễn phí trong 24h.',
-  keywords: [
-    'lắp mạng viettel ninh bình',
-    'internet viettel ninh bình',
-    'truyền hình viettel',
-    'viettel ninh bình',
-    'đăng ký viettel',
-  ],
+  title: seoConfig.title,
+  description: seoConfig.description,
+  keywords: [...seoConfig.keywords],
 });

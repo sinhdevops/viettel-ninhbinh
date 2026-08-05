@@ -2,25 +2,63 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #172033;
+  --card: #ffffff;
+  --card-foreground: #172033;
+  --popover: #ffffff;
+  --popover-foreground: #172033;
+  --primary: #e60012;
+  --primary-hover: #c90010;
+  --primary-foreground: #ffffff;
+  --secondary: #f6f8fb;
+  --secondary-foreground: #172033;
+  --muted: #f6f8fb;
+  --muted-foreground: #647084;
+  --accent: #fff0f1;
+  --accent-foreground: #c90010;
+  --destructive: #dc2626;
+  --border: #e6eaf0;
+  --input: #dfe4eb;
+  --ring: #e60012;
+  --radius: 0.625rem;
+  --card-shadow: 0 16px 45px rgb(22 35 54 / 10%);
+  --primary-shadow: 0 8px 22px rgb(230 0 18 / 18%);
+  --primary-shadow-hover: 0 12px 28px rgb(230 0 18 / 25%);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --radius-sm: calc(var(--radius) - 2px);
+  --radius-md: var(--radius);
+  --radius-lg: calc(var(--radius) + 4px);
+  --radius-xl: calc(var(--radius) + 8px);
+  --shadow-card: var(--card-shadow);
+  --shadow-primary: var(--primary-shadow);
+  --shadow-primary-hover: var(--primary-shadow-hover);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
 }

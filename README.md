@@ -16,6 +16,19 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+## Telegram lead notifications
+
+Copy `.env.example` to `.env.local`, then configure the server-only variables:
+
+```env
+TELEGRAM_BOT_TOKEN=your_bot_token
+TELEGRAM_CHAT_ID=your_chat_or_group_id
+# Optional: only for a topic inside a forum group
+TELEGRAM_MESSAGE_THREAD_ID=
+```
+
+Create the bot with [@BotFather](https://t.me/BotFather), add it to the destination chat, then restart the Next.js server. Never prefix these variables with `NEXT_PUBLIC_` because the token must remain on the server.
+
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
