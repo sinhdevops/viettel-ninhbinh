@@ -2,6 +2,7 @@ import { CheckIcon, MessageCircleIcon } from 'lucide-react';
 
 import { Container } from '@/components/layout/container';
 import { Button } from '@/components/ui/button';
+import type { MarketConfig } from '@/config/markets';
 import { siteConfig } from '@/config/site';
 import { LeadForm } from '@/features/leads/lead-form';
 
@@ -14,7 +15,11 @@ const highlights = [
   'Miễn phí lắp đặt, hòa mạng',
 ] as const;
 
-function HeroSection() {
+interface HeroSectionProps {
+  market: MarketConfig;
+}
+
+function HeroSection({ market }: HeroSectionProps) {
   return (
     <section
       id="top"
@@ -29,7 +34,7 @@ function HeroSection() {
             </p>
             <h1 className="text-foreground text-4xl leading-[1.08] font-black tracking-[-0.05em] sm:text-5xl lg:text-[3.5rem] xl:text-6xl">
               Lắp Internet <span className="text-primary">Viettel</span>
-              <br /> tại <span className="text-primary">Ninh Bình</span>
+              <br /> tại <span className="text-primary">{market.locationName}</span>
               <br /> và các tỉnh khác
             </h1>
             <p className="text-muted-foreground mt-4 max-w-xl text-base leading-relaxed sm:text-lg">
@@ -70,7 +75,7 @@ function HeroSection() {
           </div>
 
           <div className="order-2 lg:col-span-5 lg:w-full lg:max-w-[26rem] lg:justify-self-end">
-            <LeadForm />
+            <LeadForm market={market} />
           </div>
         </div>
 

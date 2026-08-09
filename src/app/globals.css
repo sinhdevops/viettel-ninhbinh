@@ -62,3 +62,13 @@ body {
   color: var(--foreground);
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
 }
+
+.floating-contact-bottom {
+  bottom: max(1rem, env(safe-area-inset-bottom));
+}
+
+@media (width >= 48rem) {
+  .floating-contact-bottom {
+    bottom: max(1.5rem, env(safe-area-inset-bottom));
+  }
+}

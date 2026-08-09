@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 
+import { daNangMarket, type MarketConfig } from '@/config/markets';
 import { absoluteUrl, seoConfig } from '@/config/seo';
 
 interface SEOProps {
@@ -9,6 +10,7 @@ interface SEOProps {
   image?: string;
   noIndex?: boolean;
   keywords?: string[];
+  siteName?: string;
 }
 
 /**
@@ -19,7 +21,7 @@ interface SEOProps {
  * ```ts
  * export const metadata = generateMetadata({
  *   title: 'Đăng ký mạng Viettel',
- *   description: 'Đăng ký lắp mạng Viettel Ninh Bình...',
+ *   description: 'Đăng ký lắp mạng Viettel tại địa phương...',
  *   path: '/dang-ky',
  *   keywords: ['viettel', 'ninh bình', 'lắp mạng'],
  * });
@@ -32,6 +34,7 @@ export function generateMetadata({
   image,
   noIndex = false,
   keywords = [],
+  siteName = seoConfig.name,
 }: SEOProps): Metadata {
   const url = absoluteUrl(path || '/');
   const ogImage = image ? absoluteUrl(image) : undefined;
@@ -41,14 +44,14 @@ export function generateMetadata({
   return {
     title: {
       default: title,
-      template: `%s | ${seoConfig.name}`,
+      template: `%s | ${siteName}`,
     },
     description,
     keywords,
-    applicationName: seoConfig.name,
-    authors: [{ name: seoConfig.name, url: seoConfig.url }],
-    creator: seoConfig.name,
-    publisher: seoConfig.name,
+    applicationName: siteName,
+    authors: [{ name: siteName, url }],
+    creator: siteName,
+    publisher: siteName,
     category: 'technology',
     metadataBase: new URL(seoConfig.url),
     alternates: {
@@ -60,7 +63,7 @@ export function generateMetadata({
       url,
       title,
       description,
-      siteName: seoConfig.name,
+      siteName,
       ...(ogImage ? { images: [{ url: ogImage, alt: title }] } : {}),
     },
     twitter: {
@@ -94,11 +97,23 @@ export function generateMetadata({
   };
 }
 
+export function generateMarketMetadata(market: MarketConfig): Metadata {
+  const metadata = generateMetadata({
+    title: market.seo.title,
+    description: market.seo.description,
+    path: market.path,
+    image: '/images/viettel-social-share.jpg',
+    keywords: [...market.seo.keywords],
+    siteName: market.siteName,
+  });
+
+  return {
+    ...metadata,
+    title: { absolute: market.seo.title },
+  };
+}
+
 /**
  * Default metadata for the site root.
  */
-export const defaultMetadata = generateMetadata({
-  title: seoConfig.title,
-  description: seoConfig.description,
-  keywords: [...seoConfig.keywords],
-});
+export const defaultMetadata = generateMarketMetadata(daNangMarket);

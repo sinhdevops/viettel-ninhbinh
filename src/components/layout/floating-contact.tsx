@@ -42,7 +42,7 @@ function FloatingContact() {
   return (
     <nav
       aria-label="Liên hệ nhanh"
-      className="fixed right-4 bottom-[max(1rem,env(safe-area-inset-bottom))] z-[60] grid gap-3 md:right-6 md:bottom-[max(1.5rem,env(safe-area-inset-bottom))]"
+      className="floating-contact-bottom fixed right-4 z-[60] grid gap-3 md:right-6"
     >
       <ContactLink href={siteConfig.zaloUrl} label="Chat Zalo" color="zalo" external>
         <ZaloIcon className="size-8 bg-transparent text-white" />

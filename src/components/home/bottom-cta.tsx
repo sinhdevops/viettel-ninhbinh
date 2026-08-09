@@ -1,7 +1,12 @@
 import { Container } from '@/components/layout/container';
+import type { MarketConfig } from '@/config/markets';
 import { QuickLeadForm } from '@/features/leads/quick-lead-form';
 
-function BottomCta() {
+interface BottomCtaProps {
+  market: MarketConfig;
+}
+
+function BottomCta({ market }: BottomCtaProps) {
   return (
     <section className="pb-16 sm:pb-20">
       <Container>
@@ -10,7 +15,7 @@ function BottomCta() {
             <h2 className="text-xl font-black">Đăng ký lắp đặt ngay</h2>
             <p className="mt-1 text-sm text-white/85">Viettel luôn sẵn sàng đồng hành cùng bạn</p>
           </div>
-          <QuickLeadForm />
+          <QuickLeadForm market={market} />
         </div>
       </Container>
     </section>

@@ -1,12 +1,13 @@
 import type { MetadataRoute } from 'next';
 
+import { daNangMarket } from '@/config/markets';
 import { seoConfig } from '@/config/seo';
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: seoConfig.name,
-    short_name: 'Viettel Ninh Bình',
-    description: seoConfig.description,
+    name: daNangMarket.siteName,
+    short_name: daNangMarket.siteName,
+    description: daNangMarket.seo.description,
     start_url: '/',
     display: 'standalone',
     background_color: '#ffffff',

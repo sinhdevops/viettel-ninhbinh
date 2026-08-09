@@ -1,22 +1,28 @@
 import { MessageCircleIcon, PhoneIcon } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
+import type { MarketConfig } from '@/config/markets';
 import { siteConfig } from '@/config/site';
 
 import { Container } from './container';
 import { DesktopNavigation } from './desktop-navigation';
 import { MobileNavigation } from './mobile-navigation';
+import { ScrollProgress } from './scroll-progress';
 import { SiteBrand } from './site-brand';
 
-function SiteHeader() {
+interface SiteHeaderProps {
+  market: MarketConfig;
+}
+
+function SiteHeader({ market }: SiteHeaderProps) {
   return (
     <header className="border-border/80 bg-background/95 supports-[backdrop-filter]:bg-background/85 sticky top-0 z-50 border-b shadow-[0_3px_16px_rgb(20_34_55/4%)] backdrop-blur-xl">
       <Container className="flex h-16 items-stretch justify-between gap-3 lg:h-[74px] lg:gap-6">
         <div className="flex items-center">
-          <SiteBrand />
+          <SiteBrand market={market} />
         </div>
 
-        <DesktopNavigation className="hidden gap-5 lg:flex xl:gap-7" />
+        <DesktopNavigation market={market} className="hidden gap-5 lg:flex xl:gap-7" />
 
         <div className="flex items-center gap-2">
           <a
@@ -32,9 +38,10 @@ function SiteHeader() {
               Liên hệ ngay
             </a>
           </Button>
-          <MobileNavigation />
+          <MobileNavigation market={market} />
         </div>
       </Container>
+      <ScrollProgress />
     </header>
   );
 }

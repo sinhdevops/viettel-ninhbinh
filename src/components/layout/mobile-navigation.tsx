@@ -14,11 +14,16 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet';
+import { getMarketHashHref, type MarketConfig } from '@/config/markets';
 import { siteConfig } from '@/config/site';
 
 import { SiteBrand } from './site-brand';
 
-function MobileNavigation() {
+interface MobileNavigationProps {
+  market: MarketConfig;
+}
+
+function MobileNavigation({ market }: MobileNavigationProps) {
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -29,10 +34,10 @@ function MobileNavigation() {
 
       <SheetContent side="right" className="w-[min(22rem,90vw)]">
         <SheetHeader className="border-border border-b px-5 py-4 pr-16">
-          <SiteBrand />
+          <SiteBrand market={market} />
           <SheetTitle className="sr-only">Menu điều hướng</SheetTitle>
           <SheetDescription className="sr-only">
-            Điều hướng dịch vụ và liên hệ Viettel Ninh Bình
+            Điều hướng dịch vụ và liên hệ {market.siteName}
           </SheetDescription>
         </SheetHeader>
 
@@ -44,7 +49,7 @@ function MobileNavigation() {
             {siteConfig.navigation.map((item, index) => (
               <SheetClose key={item.href} asChild>
                 <Link
-                  href={item.href}
+                  href={getMarketHashHref(market, item.href)}
                   className="group text-foreground hover:bg-accent hover:text-accent-foreground focus-visible:bg-accent focus-visible:text-accent-foreground flex min-h-14 items-center gap-3 rounded-xl px-3 text-[0.9375rem] font-bold transition-colors outline-none"
                 >
                   <span className="bg-secondary text-muted-foreground group-hover:bg-primary group-hover:text-primary-foreground group-focus-visible:bg-primary group-focus-visible:text-primary-foreground grid size-8 shrink-0 place-items-center rounded-lg text-xs font-extrabold transition-colors">

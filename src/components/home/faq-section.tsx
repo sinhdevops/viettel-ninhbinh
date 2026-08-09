@@ -1,11 +1,18 @@
 import { PlusIcon } from 'lucide-react';
 
 import { Container } from '@/components/layout/container';
-import { faqItems } from '@/data/home';
+import type { MarketConfig } from '@/config/markets';
+import { getFaqItems } from '@/data/home';
 
 import { SectionHeading } from './section-heading';
 
-function FaqSection() {
+interface FaqSectionProps {
+  market: MarketConfig;
+}
+
+function FaqSection({ market }: FaqSectionProps) {
+  const faqItems = getFaqItems(market.locationName);
+
   return (
     <section id="faq" className="scroll-mt-24 py-16 sm:py-20">
       <Container className="max-w-5xl">

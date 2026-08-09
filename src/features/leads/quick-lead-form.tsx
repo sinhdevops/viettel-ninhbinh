@@ -15,7 +15,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { regions } from '@/data/home';
+import type { MarketConfig } from '@/config/markets';
 import { cn } from '@/lib/utils';
 
 import { leadSchema, type LeadFormValues } from './lead-schema';
@@ -30,7 +30,11 @@ const quickLeadSchema = leadSchema.pick({
 
 type QuickLeadValues = z.infer<typeof quickLeadSchema>;
 
-function QuickLeadForm() {
+interface QuickLeadFormProps {
+  market: MarketConfig;
+}
+
+function QuickLeadForm({ market }: QuickLeadFormProps) {
   const [notice, setNotice] = useState<{ message: string; type: 'error' | 'success' } | null>(null);
   const form = useForm<QuickLeadValues>({
     resolver: zodResolver(quickLeadSchema),
@@ -43,6 +47,7 @@ function QuickLeadForm() {
     try {
       const payload: LeadFormValues = {
         ...values,
+        market: market.id,
         service: 'internet',
         plan: '',
       };
@@ -78,15 +83,15 @@ function QuickLeadForm() {
         render={({ field, fieldState }) => (
           <Select required value={field.value ?? ''} onValueChange={field.onChange}>
             <SelectTrigger
-              aria-label="Chọn quận/huyện"
+              aria-label="Chọn khu vực"
               aria-required="true"
               aria-invalid={fieldState.invalid}
               className="text-foreground border-0 bg-white"
             >
-              <SelectValue placeholder="Chọn quận/huyện">{field.value}</SelectValue>
+              <SelectValue placeholder="Chọn khu vực">{field.value}</SelectValue>
             </SelectTrigger>
             <SelectContent>
-              {regions.map((region) => (
+              {market.regions.map((region) => (
                 <SelectItem key={region} value={region}>
                   {region}
                 </SelectItem>

@@ -9,6 +9,7 @@ import {
 } from 'lucide-react';
 
 import { Container } from '@/components/layout/container';
+import type { MarketConfig } from '@/config/markets';
 
 import { SectionHeading } from './section-heading';
 
@@ -55,13 +56,17 @@ const documents = [
   },
 ] as const;
 
-function InstallationProcessSection() {
+interface InstallationProcessSectionProps {
+  market: MarketConfig;
+}
+
+function InstallationProcessSection({ market }: InstallationProcessSectionProps) {
   return (
     <section id="process" className="scroll-mt-24 py-16 sm:py-20">
       <Container>
         <SectionHeading
           eyebrow="Nhanh chóng, thuận tiện"
-          title="Quy trình lắp đặt Internet Viettel tại Ninh Bình"
+          title={`Quy trình lắp đặt Internet Viettel tại ${market.locationName}`}
         />
 
         <ol className="relative mt-10 grid gap-4 before:absolute before:top-9 before:right-[10%] before:left-[10%] before:hidden before:border-t before:border-dashed before:border-red-200 md:grid-cols-5 md:gap-2 md:before:block">

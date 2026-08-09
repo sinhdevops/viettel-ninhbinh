@@ -1,11 +1,16 @@
 import { Container } from '@/components/layout/container';
+import type { MarketConfig } from '@/config/markets';
 import { internetPlans } from '@/data/home';
 
 import { InternetComparison } from './internet-comparison';
 import { PlanCard } from './plan-card';
 import { SectionHeading } from './section-heading';
 
-function InternetPlansSection() {
+interface InternetPlansSectionProps {
+  market: MarketConfig;
+}
+
+function InternetPlansSection({ market }: InternetPlansSectionProps) {
   return (
     <section
       id="plans"
@@ -25,8 +30,8 @@ function InternetPlansSection() {
         </div>
 
         <p className="text-muted-foreground mt-1 text-center text-xs leading-relaxed">
-          * Gói cước áp dụng cho khu vực Ninh Bình. Thiết bị và ưu đãi thực tế được xác nhận theo hạ
-          tầng tại địa chỉ lắp đặt.
+          * Gói cước áp dụng cho khu vực {market.locationName}. Thiết bị và ưu đãi thực tế được xác
+          nhận theo hạ tầng tại địa chỉ lắp đặt.
         </p>
         <InternetComparison />
       </Container>

@@ -2,6 +2,7 @@ import { CheckIcon } from 'lucide-react';
 import Image from 'next/image';
 
 import { Container } from '@/components/layout/container';
+import type { MarketConfig } from '@/config/markets';
 import { IMAGE_PATHS } from '@/constants/images';
 import { comboPlans } from '@/data/home';
 
@@ -15,7 +16,11 @@ const comboBenefits = [
   'Tặng kèm hệ thống Modem Wi-Fi theo gói',
 ] as const;
 
-function ComboSection() {
+interface ComboSectionProps {
+  market: MarketConfig;
+}
+
+function ComboSection({ market }: ComboSectionProps) {
   return (
     <section
       id="combo"
@@ -26,7 +31,7 @@ function ComboSection() {
           <div>
             <SectionHeading
               eyebrow="Giải trí trọn vẹn"
-              title="Combo Internet + Truyền hình tại Ninh Bình"
+              title={`Combo Internet + Truyền hình tại ${market.locationName}`}
               align="left"
             />
             <ul className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">

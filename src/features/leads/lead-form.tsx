@@ -16,7 +16,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { planOptions, regions, serviceOptions, type ServiceValue } from '@/data/home';
+import type { MarketConfig } from '@/config/markets';
+import { planOptions, serviceOptions, type ServiceValue } from '@/data/home';
 import { cn } from '@/lib/utils';
 
 import { leadSchema, type LeadFormValues } from './lead-schema';
@@ -43,12 +44,17 @@ function FieldError({ id, message }: FieldErrorProps) {
   );
 }
 
-function LeadForm() {
+interface LeadFormProps {
+  market: MarketConfig;
+}
+
+function LeadForm({ market }: LeadFormProps) {
   const { selection } = useLeadSelection();
   const [notice, setNotice] = useState<SubmissionNotice | null>(null);
   const form = useForm<LeadFormValues>({
     resolver: zodResolver(leadSchema),
     defaultValues: {
+      market: market.id,
       service: selection?.service ?? 'internet',
       plan: selection?.plan ?? '',
       address: '',
@@ -97,6 +103,7 @@ function LeadForm() {
         message,
       });
       form.reset({
+        market: market.id,
         service: values.service,
         plan: '',
         address: '',
@@ -137,6 +144,7 @@ function LeadForm() {
 
       <CardContent className="px-5 lg:px-6">
         <form className="grid gap-4" onSubmit={form.handleSubmit(onSubmit)} noValidate>
+          <input type="hidden" {...form.register('market')} />
           <div className="absolute -left-[9999px]" aria-hidden="true">
             <label htmlFor="website">Website</label>
             <Input id="website" tabIndex={-1} autoComplete="off" {...form.register('website')} />
@@ -241,10 +249,10 @@ function LeadForm() {
                     aria-invalid={fieldState.invalid}
                     aria-describedby={fieldState.error ? 'lead-district-error' : undefined}
                   >
-                    <SelectValue placeholder="Chọn quận/huyện" />
+                    <SelectValue placeholder="Chọn khu vực" />
                   </SelectTrigger>
                   <SelectContent>
-                    {regions.map((region) => (
+                    {market.regions.map((region) => (
                       <SelectItem key={region} value={region}>
                         {region}
                       </SelectItem>

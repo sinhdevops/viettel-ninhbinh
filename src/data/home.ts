@@ -32,32 +32,6 @@ export const serviceOptions = [
   { value: 'business', label: 'Internet doanh nghiệp' },
 ] as const satisfies readonly ServiceOption[];
 
-export const regions = [
-  'Thành phố Hoa Lư',
-  'Thành phố Tam Điệp',
-  'Thành phố Phủ Lý',
-  'Thành phố Nam Định',
-  'Thị xã Duy Tiên',
-  'Thị xã Kim Bảng',
-  'Huyện Nho Quan',
-  'Huyện Gia Viễn',
-  'Huyện Yên Mô',
-  'Huyện Yên Khánh',
-  'Huyện Kim Sơn',
-  'Huyện Lý Nhân',
-  'Huyện Thanh Liêm',
-  'Huyện Bình Lục',
-  'Huyện Vụ Bản',
-  'Huyện Ý Yên',
-  'Huyện Mỹ Lộc',
-  'Huyện Nam Trực',
-  'Huyện Trực Ninh',
-  'Huyện Nghĩa Hưng',
-  'Huyện Xuân Trường',
-  'Huyện Giao Thủy',
-  'Huyện Hải Hậu',
-] as const;
-
 export const internetPlans = [
   {
     id: 'netvt1',
@@ -232,33 +206,34 @@ export const planOptions = [
   })),
 ];
 
-export const faqItems = [
-  {
-    question: 'Làm sao để đăng ký lắp đặt tại địa chỉ của tôi?',
-    answer:
-      'Điền địa chỉ và số điện thoại vào biểu mẫu. Nhân viên Viettel Ninh Bình sẽ liên hệ xác nhận hạ tầng và tư vấn gói phù hợp.',
-  },
-  {
-    question: 'Thời gian lắp đặt mất bao lâu?',
-    answer:
-      'Thông thường từ 12–24 giờ sau khi hoàn tất đăng ký, tùy điều kiện hạ tầng và lịch hẹn của khách hàng.',
-  },
-  {
-    question: 'Chi phí lắp đặt có mất phí không?',
-    answer: 'Chi phí ban đầu = 300.000đ phí hòa mạng + (cước tháng × số tháng đăng ký).',
-  },
-  {
-    question: 'Tôi có thể thay đổi gói cước sau khi đăng ký không?',
-    answer:
-      'Có. Bạn có thể nâng hoặc chuyển gói theo nhu cầu và chính sách áp dụng tại thời điểm yêu cầu.',
-  },
-  {
-    question: 'Viettel có hỗ trợ kỹ thuật 24/7 không?',
-    answer: 'Có. Tổng đài kỹ thuật 1800 8119 hỗ trợ miễn phí 24/7.',
-  },
-  {
-    question: 'Có những hình thức thanh toán cước nào?',
-    answer:
-      'Bạn có thể thanh toán qua Viettel Money, ngân hàng, điểm giao dịch hoặc các kênh thanh toán trực tuyến.',
-  },
-] as const;
+export function getFaqItems(locationName: string) {
+  return [
+    {
+      question: 'Làm sao để đăng ký lắp đặt tại địa chỉ của tôi?',
+      answer: `Điền địa chỉ và số điện thoại vào biểu mẫu. Nhân viên Viettel ${locationName} sẽ liên hệ xác nhận hạ tầng và tư vấn gói phù hợp.`,
+    },
+    {
+      question: 'Thời gian lắp đặt mất bao lâu?',
+      answer:
+        'Thông thường từ 12–24 giờ sau khi hoàn tất đăng ký, tùy điều kiện hạ tầng và lịch hẹn của khách hàng.',
+    },
+    {
+      question: 'Chi phí lắp đặt có mất phí không?',
+      answer: 'Chi phí ban đầu = 300.000đ phí hòa mạng + (cước tháng × số tháng đăng ký).',
+    },
+    {
+      question: 'Tôi có thể thay đổi gói cước sau khi đăng ký không?',
+      answer:
+        'Có. Bạn có thể nâng hoặc chuyển gói theo nhu cầu và chính sách áp dụng tại thời điểm yêu cầu.',
+    },
+    {
+      question: 'Viettel có hỗ trợ kỹ thuật 24/7 không?',
+      answer: 'Có. Tổng đài kỹ thuật 1800 8119 hỗ trợ miễn phí 24/7.',
+    },
+    {
+      question: 'Có những hình thức thanh toán cước nào?',
+      answer:
+        'Bạn có thể thanh toán qua Viettel Money, ngân hàng, điểm giao dịch hoặc các kênh thanh toán trực tuyến.',
+    },
+  ] as const;
+}

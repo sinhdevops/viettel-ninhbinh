@@ -1,6 +1,9 @@
 import { z } from 'zod';
 
+import { marketIds } from '@/config/market-types';
+
 export const leadSchema = z.object({
+  market: z.enum(marketIds),
   service: z.enum(['internet', 'combo', 'business'], {
     message: 'Vui lòng chọn loại dịch vụ.',
   }),

@@ -1,6 +1,7 @@
 import { ArrowRightIcon } from 'lucide-react';
 import Link from 'next/link';
 
+import { getMarketHashHref, type MarketConfig } from '@/config/markets';
 import { siteConfig, type NavigationItem } from '@/config/site';
 import { cn } from '@/lib/utils';
 
@@ -8,12 +9,13 @@ import { Container } from './container';
 import { SiteBrand } from './site-brand';
 
 interface FooterNavigationProps {
+  market: MarketConfig;
   title: string;
   items: readonly NavigationItem[];
   className?: string;
 }
 
-function FooterNavigation({ title, items, className }: FooterNavigationProps) {
+function FooterNavigation({ market, title, items, className }: FooterNavigationProps) {
   return (
     <nav
       aria-label={title}
@@ -28,7 +30,7 @@ function FooterNavigation({ title, items, className }: FooterNavigationProps) {
       {items.map((item) => (
         <Link
           key={`${item.label}-${item.href}`}
-          href={item.href}
+          href={getMarketHashHref(market, item.href)}
           className="before:bg-primary md:text-muted-foreground md:hover:text-primary md:focus-visible:text-primary flex items-center gap-2 text-xs leading-relaxed text-white/70 outline-none before:size-1 before:shrink-0 before:rounded-full hover:text-white focus-visible:text-white md:before:hidden"
         >
           {item.label}
@@ -38,7 +40,11 @@ function FooterNavigation({ title, items, className }: FooterNavigationProps) {
   );
 }
 
-function SiteFooter() {
+interface SiteFooterProps {
+  market: MarketConfig;
+}
+
+function SiteFooter({ market }: SiteFooterProps) {
   return (
     <footer
       id="footer"
@@ -47,15 +53,24 @@ function SiteFooter() {
       <Container>
         <div className="grid grid-cols-2 gap-3 md:grid-cols-[1.25fr_0.75fr_0.75fr_0.75fr_1.15fr] md:gap-7">
           <div className="col-span-2 px-1 pb-2 md:col-span-1 md:px-0">
-            <SiteBrand inverse />
+            <SiteBrand market={market} inverse />
             <p className="md:text-muted-foreground mt-4 max-w-60 text-sm leading-relaxed text-white/65 md:text-xs">
-              {siteConfig.name} – {siteConfig.description}
+              {market.siteName} – {siteConfig.description}
             </p>
           </div>
 
-          <FooterNavigation title="Dịch vụ" items={siteConfig.footerNavigation.services} />
-          <FooterNavigation title="Hỗ trợ" items={siteConfig.footerNavigation.support} />
           <FooterNavigation
+            market={market}
+            title="Dịch vụ"
+            items={siteConfig.footerNavigation.services}
+          />
+          <FooterNavigation
+            market={market}
+            title="Hỗ trợ"
+            items={siteConfig.footerNavigation.support}
+          />
+          <FooterNavigation
+            market={market}
             title="Về Viettel"
             items={siteConfig.footerNavigation.about}
             className="col-span-2 grid grid-cols-2 md:col-span-1 md:flex"
@@ -85,7 +100,7 @@ function SiteFooter() {
         </div>
 
         <p className="md:border-border md:text-muted-foreground mt-6 border-t border-white/10 py-5 text-center text-xs leading-relaxed text-white/50 md:mt-10">
-          © {new Date().getFullYear()} {siteConfig.name}. Mọi quyền được bảo lưu.
+          © {new Date().getFullYear()} {market.siteName}. Mọi quyền được bảo lưu.
         </p>
       </Container>
     </footer>

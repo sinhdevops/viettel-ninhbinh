@@ -8,6 +8,7 @@ interface TelegramApiResponse {
 }
 
 interface TelegramLead {
+  market: string;
   service: string;
   plan: string;
   address: string;
@@ -59,13 +60,14 @@ function buildTelegramMessage(lead: TelegramLead) {
   return [
     '🔔 <b>YÊU CẦU LẮP ĐẶT MỚI</b>',
     '━━━━━━━━━━━━━━',
+    `<b>Khu vực website:</b> ${escapeHtml(lead.market)}`,
     `<b>Dịch vụ:</b> ${escapeHtml(lead.service)}`,
     `<b>Gói cước:</b> ${escapeHtml(lead.plan)}`,
     `<b>Địa chỉ:</b> ${escapeHtml(lead.address)}`,
     `<b>Khu vực:</b> ${escapeHtml(lead.district)}`,
     `<b>Điện thoại:</b> <code>${escapeHtml(lead.phone)}</code>`,
     `<b>Thời gian:</b> ${escapeHtml(formatSubmittedAt(new Date()))}`,
-    '<b>Nguồn:</b> Website Viettel Ninh Bình',
+    `<b>Nguồn:</b> Website ${escapeHtml(lead.market)}`,
   ].join('\n');
 }
 

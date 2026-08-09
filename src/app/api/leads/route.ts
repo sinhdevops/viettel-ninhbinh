@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 
-import { planOptions, regions, serviceOptions } from '@/data/home';
+import { getMarketById } from '@/config/markets';
+import { planOptions, serviceOptions } from '@/data/home';
 import { leadSchema } from '@/features/leads/lead-schema';
 import { sendLeadToTelegram, TelegramConfigurationError } from '@/features/leads/server/telegram';
 
@@ -31,14 +32,16 @@ export async function POST(request: Request) {
     return jsonMessage(result.error.issues[0]?.message ?? 'Vui lòng kiểm tra lại thông tin.', 422);
   }
 
-  const { service, plan, address, district, phone, website } = result.data;
+  const { market: marketId, service, plan, address, district, phone, website } = result.data;
 
   // Honeypot: silently accept automated submissions without forwarding personal data.
   if (website) {
     return jsonMessage('Đã ghi nhận yêu cầu.');
   }
 
-  if (!regions.some((region) => region === district)) {
+  const market = getMarketById(marketId);
+
+  if (!market.regions.some((region) => region === district)) {
     return jsonMessage('Khu vực đã chọn không hợp lệ.', 422);
   }
 
@@ -56,6 +59,7 @@ export async function POST(request: Request) {
 
   try {
     await sendLeadToTelegram({
+      market: market.siteName,
       service: serviceLabel,
       plan: planLabel,
       address,

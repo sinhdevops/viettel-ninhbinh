@@ -1,11 +1,9 @@
 import type { Metadata, Viewport } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 
-import { FloatingContact, SiteFooter, SiteHeader } from '@/components/layout';
 import { FacebookPixel } from '@/components/tracking/FacebookPixel';
 import { GoogleTagManager, GoogleTagManagerNoscript } from '@/components/tracking/GoogleTagManager';
 import { defaultMetadata } from '@/lib/seo';
-import { OrganizationJsonLd, WebSiteJsonLd } from '@/lib/structured-data';
 
 import './globals.css';
 
@@ -51,10 +49,6 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
           </>
         )}
         {hasFacebookTracking && <link rel="dns-prefetch" href="https://connect.facebook.net" />}
-
-        {/* Structured Data */}
-        <OrganizationJsonLd />
-        <WebSiteJsonLd />
       </head>
       <body className="flex min-h-full flex-col">
         <GoogleTagManagerNoscript />
@@ -64,12 +58,7 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
         >
           Chuyển đến nội dung chính
         </a>
-        <SiteHeader />
-        <div id="main-content" className="flex flex-1 flex-col" tabIndex={-1}>
-          {children}
-        </div>
-        <SiteFooter />
-        <FloatingContact />
+        {children}
 
         {/* Tracking scripts - loaded after page interactive */}
         <GoogleTagManager />
