@@ -8,13 +8,7 @@ import { z } from 'zod';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
+import { SearchableSelect } from '@/components/ui/searchable-select';
 import type { MarketConfig } from '@/config/markets';
 import { cn } from '@/lib/utils';
 
@@ -81,23 +75,18 @@ function QuickLeadForm({ market }: QuickLeadFormProps) {
         control={form.control}
         name="district"
         render={({ field, fieldState }) => (
-          <Select required value={field.value ?? ''} onValueChange={field.onChange}>
-            <SelectTrigger
-              aria-label="Chọn khu vực"
-              aria-required="true"
-              aria-invalid={fieldState.invalid}
-              className="text-foreground border-0 bg-white"
-            >
-              <SelectValue placeholder="Chọn khu vực">{field.value}</SelectValue>
-            </SelectTrigger>
-            <SelectContent>
-              {market.regions.map((region) => (
-                <SelectItem key={region} value={region}>
-                  {region}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+          <SearchableSelect
+            required
+            value={field.value}
+            options={market.regions}
+            onValueChange={field.onChange}
+            placeholder="Chọn khu vực"
+            searchPlaceholder="Tìm phường, xã, khu vực..."
+            emptyMessage="Không tìm thấy khu vực phù hợp."
+            aria-label="Chọn khu vực"
+            aria-invalid={fieldState.invalid}
+            className="text-foreground border-0 bg-white"
+          />
         )}
       />
 

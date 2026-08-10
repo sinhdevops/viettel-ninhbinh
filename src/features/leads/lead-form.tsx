@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { FormLabel } from '@/components/ui/form-label';
 import { Input } from '@/components/ui/input';
+import { SearchableSelect } from '@/components/ui/searchable-select';
 import {
   Select,
   SelectContent,
@@ -242,23 +243,18 @@ function LeadForm({ market }: LeadFormProps) {
                 <FormLabel htmlFor="lead-district" isRequired>
                   Khu vực
                 </FormLabel>
-                <Select required value={field.value ?? ''} onValueChange={field.onChange}>
-                  <SelectTrigger
-                    id="lead-district"
-                    aria-required="true"
-                    aria-invalid={fieldState.invalid}
-                    aria-describedby={fieldState.error ? 'lead-district-error' : undefined}
-                  >
-                    <SelectValue placeholder="Chọn khu vực" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {market.regions.map((region) => (
-                      <SelectItem key={region} value={region}>
-                        {region}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+                <SearchableSelect
+                  id="lead-district"
+                  required
+                  value={field.value}
+                  options={market.regions}
+                  onValueChange={field.onChange}
+                  placeholder="Chọn khu vực"
+                  searchPlaceholder="Tìm phường, xã, khu vực..."
+                  emptyMessage="Không tìm thấy khu vực phù hợp."
+                  aria-invalid={fieldState.invalid}
+                  aria-describedby={fieldState.error ? 'lead-district-error' : undefined}
+                />
                 <FieldError id="lead-district-error" message={fieldState.error?.message} />
               </div>
             )}

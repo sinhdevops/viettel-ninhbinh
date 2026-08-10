@@ -6,8 +6,6 @@ export interface NavigationItem {
 const phoneNumber = process.env.NEXT_PUBLIC_PHONE || '0325610016';
 
 export const siteConfig = {
-  brandName: 'viettel',
-  tagline: 'Theo cách của bạn',
   description: 'Kết nối số, kiến tạo tương lai.',
   phone: {
     display: '0325.610.016',

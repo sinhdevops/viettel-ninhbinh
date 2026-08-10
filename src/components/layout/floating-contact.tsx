@@ -1,7 +1,8 @@
 import { PhoneIcon } from 'lucide-react';
+import Image from 'next/image';
 
-import { ZaloIcon } from '@/components/icons/zalo-icon';
 import { siteConfig } from '@/config/site';
+import { IMAGE_PATHS } from '@/constants/images';
 import { cn } from '@/lib/utils';
 
 interface ContactLinkProps {
@@ -28,7 +29,7 @@ function ContactLink({ href, label, color, external = false, children }: Contact
         className={cn(
           'relative grid size-14 place-items-center rounded-full border-[3px] border-white text-white shadow-xl transition-transform group-hover:-translate-y-0.5 group-hover:scale-105 before:absolute before:-inset-1.5 before:animate-ping before:rounded-full before:border-2 motion-reduce:before:animate-none md:size-[3.625rem]',
           color === 'zalo'
-            ? 'bg-[#0878d1] before:border-[#0878d1]/45'
+            ? 'bg-white before:border-[#0068ff]/45'
             : 'bg-primary before:border-primary/45'
         )}
       >
@@ -45,7 +46,7 @@ function FloatingContact() {
       className="floating-contact-bottom fixed right-4 z-[60] grid gap-3 md:right-6"
     >
       <ContactLink href={siteConfig.zaloUrl} label="Chat Zalo" color="zalo" external>
-        <ZaloIcon className="size-8 bg-transparent text-white" />
+        <Image src={IMAGE_PATHS.zalo} alt="" width={64} height={64} className="size-11" />
       </ContactLink>
       <ContactLink
         href={siteConfig.phone.href}
