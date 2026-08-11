@@ -32,7 +32,7 @@ const steps = [
   {
     icon: RouterIcon,
     title: 'Lắp đặt & bàn giao',
-    description: 'Kỹ thuật viên lắp đặt nhanh chóng.',
+    description: 'Kỹ thuật viên lắp đặt theo lịch đã xác nhận.',
   },
   {
     icon: HeadsetIcon,

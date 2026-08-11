@@ -1,4 +1,4 @@
-import { daNangMarket } from './markets';
+import { siteConfig } from './site';
 
 const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || 'https://viettel-ninhbinh.vn').replace(
   /\/+$/,
@@ -7,12 +7,12 @@ const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || 'https://viettel-ninhbinh.v
 
 export const seoConfig = {
   url: siteUrl,
-  name: daNangMarket.siteName,
+  name: siteConfig.name,
   locale: 'vi_VN',
   language: 'vi-VN',
-  title: daNangMarket.seo.title,
-  description: daNangMarket.seo.description,
-  keywords: daNangMarket.seo.keywords,
+  title: 'Internet, Truyền hình, Camera & Giải pháp Viettel',
+  description: siteConfig.description,
+  keywords: ['Internet Viettel', 'TV360', 'Camera Viettel', 'Internet doanh nghiệp'],
 } as const;
 
 export function absoluteUrl(path = '/') {

@@ -8,13 +8,6 @@ import { LeadForm } from '@/features/leads/lead-form';
 
 import { BenefitStrip } from './benefit-strip';
 
-const highlights = [
-  'Tốc độ mạnh, ổn định 24/7',
-  'Trang bị Wi-Fi chuẩn mới, tối ưu cho mọi thiết bị',
-  'Hỗ trợ kỹ thuật nhanh chóng',
-  'Miễn phí lắp đặt, hòa mạng',
-] as const;
-
 interface HeroSectionProps {
   market: MarketConfig;
 }
@@ -30,19 +23,17 @@ function HeroSection({ market }: HeroSectionProps) {
         <div className="grid items-center gap-8 lg:grid-cols-12 lg:gap-6 xl:gap-8">
           <div className="lg:col-span-7 xl:pr-12">
             <p className="text-primary mb-3 text-xs font-black tracking-[0.14em] uppercase">
-              Internet cáp quang tốc độ cao
+              {market.hero.eyebrow}
             </p>
             <h1 className="text-foreground text-4xl leading-[1.08] font-black tracking-[-0.05em] sm:text-5xl lg:text-[3.5rem] xl:text-6xl">
-              Lắp Internet <span className="text-primary">Viettel</span>
-              <br /> tại <span className="text-primary">{market.locationName}</span>
-              <br /> và các tỉnh khác
+              {market.hero.title}
             </h1>
             <p className="text-muted-foreground mt-4 max-w-xl text-base leading-relaxed sm:text-lg">
-              Kết nối siêu tốc – Ổn định – Phủ sóng rộng khắp
+              {market.hero.description}
             </p>
 
             <ul className="mt-6 grid gap-3">
-              {highlights.map((highlight) => (
+              {market.hero.highlights.map((highlight) => (
                 <li
                   key={highlight}
                   className="text-foreground/75 flex items-center gap-3 text-sm font-medium"

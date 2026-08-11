@@ -5,7 +5,7 @@ import { siteConfig } from '@/config/site';
 import { cn } from '@/lib/utils';
 
 interface DesktopNavigationProps {
-  market: MarketConfig;
+  market?: MarketConfig;
   className?: string;
 }
 

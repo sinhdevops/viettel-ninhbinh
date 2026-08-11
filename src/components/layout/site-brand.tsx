@@ -1,21 +1,19 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { getMarketHashHref, type MarketConfig } from '@/config/markets';
 import { IMAGE_PATHS } from '@/constants/images';
 import { cn } from '@/lib/utils';
 
 interface SiteBrandProps {
-  market: MarketConfig;
   className?: string;
   inverse?: boolean;
 }
 
-function SiteBrand({ market, className, inverse = false }: SiteBrandProps) {
+function SiteBrand({ className, inverse = false }: SiteBrandProps) {
   return (
     <Link
-      href={getMarketHashHref(market, '#top')}
-      aria-label={`${market.siteName} - Trang chủ`}
+      href="/"
+      aria-label="Đăng ký dịch vụ Viettel - Trang chủ"
       className={cn(
         'focus-visible:ring-ring/20 inline-flex shrink-0 items-center outline-none focus-visible:rounded-sm focus-visible:ring-3',
         className

@@ -1,6 +1,7 @@
 import { PhoneIcon } from 'lucide-react';
 import Image from 'next/image';
 
+import { TrackedContactLink } from '@/components/tracking/tracked-contact-link';
 import { siteConfig } from '@/config/site';
 import { IMAGE_PATHS } from '@/constants/images';
 import { cn } from '@/lib/utils';
@@ -15,7 +16,9 @@ interface ContactLinkProps {
 
 function ContactLink({ href, label, color, external = false, children }: ContactLinkProps) {
   return (
-    <a
+    <TrackedContactLink
+      channel={color}
+      placement="floating_contact"
       href={href}
       aria-label={label}
       target={external ? '_blank' : undefined}
@@ -35,7 +38,7 @@ function ContactLink({ href, label, color, external = false, children }: Contact
       >
         {children}
       </span>
-    </a>
+    </TrackedContactLink>
   );
 }
 

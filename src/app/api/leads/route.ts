@@ -7,8 +7,8 @@ import { sendLeadToTelegram, TelegramConfigurationError } from '@/features/leads
 
 const MAX_REQUEST_SIZE_BYTES = 10_000;
 
-function jsonMessage(message: string, status = 200) {
-  return NextResponse.json({ message }, { status });
+function jsonMessage(message: string, status = 200, accepted = false) {
+  return NextResponse.json({ accepted, message }, { status });
 }
 
 export async function POST(request: Request) {
@@ -32,7 +32,25 @@ export async function POST(request: Request) {
     return jsonMessage(result.error.issues[0]?.message ?? 'Vui lòng kiểm tra lại thông tin.', 422);
   }
 
-  const { market: marketId, service, plan, address, district, phone, website } = result.data;
+  const {
+    market: marketId,
+    service,
+    plan,
+    address,
+    district,
+    phone,
+    landingPath,
+    referrer,
+    utmSource,
+    utmMedium,
+    utmCampaign,
+    utmContent,
+    utmTerm,
+    gclid,
+    gbraid,
+    wbraid,
+    website,
+  } = result.data;
 
   // Honeypot: silently accept automated submissions without forwarding personal data.
   if (website) {
@@ -65,9 +83,21 @@ export async function POST(request: Request) {
       address,
       district,
       phone: normalizedPhone,
+      landingPath,
+      referrer,
+      attribution: {
+        utmSource,
+        utmMedium,
+        utmCampaign,
+        utmContent,
+        utmTerm,
+        gclid,
+        gbraid,
+        wbraid,
+      },
     });
 
-    return jsonMessage('Đã ghi nhận thông tin. Chúng tôi sẽ liên hệ lại sớm.');
+    return jsonMessage('Đã ghi nhận thông tin. Chúng tôi sẽ liên hệ lại sớm.', 200, true);
   } catch (error) {
     if (error instanceof TelegramConfigurationError) {
       return jsonMessage(

@@ -22,7 +22,7 @@ function PlanCard({ plan, service, className }: PlanCardProps) {
     >
       {plan.popular && (
         <span className="bg-primary text-primary-foreground shadow-primary absolute -top-3 left-1/2 -translate-x-1/2 rounded-full px-4 py-1.5 text-[0.6875rem] font-extrabold whitespace-nowrap">
-          Được chọn nhiều nhất
+          Gói nổi bật
         </span>
       )}
 

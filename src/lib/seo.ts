@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 
-import { daNangMarket, type MarketConfig } from '@/config/markets';
+import type { MarketConfig } from '@/config/markets';
 import { absoluteUrl, seoConfig } from '@/config/seo';
 
 interface SEOProps {
@@ -105,6 +105,7 @@ export function generateMarketMetadata(market: MarketConfig): Metadata {
     image: '/images/viettel-social-share.jpg',
     keywords: [...market.seo.keywords],
     siteName: market.siteName,
+    noIndex: market.status === 'adsOnly',
   });
 
   return {
@@ -116,4 +117,10 @@ export function generateMarketMetadata(market: MarketConfig): Metadata {
 /**
  * Default metadata for the site root.
  */
-export const defaultMetadata = generateMarketMetadata(daNangMarket);
+export const defaultMetadata = generateMetadata({
+  title: seoConfig.title,
+  description: seoConfig.description,
+  path: '/',
+  image: '/images/viettel-social-share.jpg',
+  keywords: [...seoConfig.keywords],
+});

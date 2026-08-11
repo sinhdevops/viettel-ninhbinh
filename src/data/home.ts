@@ -1,4 +1,4 @@
-export type ServiceValue = 'internet' | 'combo' | 'business';
+export type ServiceValue = 'internet' | 'combo' | 'camera' | 'business';
 
 export interface ServiceOption {
   value: ServiceValue;
@@ -29,6 +29,7 @@ export interface BusinessPlan {
 export const serviceOptions = [
   { value: 'internet', label: 'Internet cáp quang' },
   { value: 'combo', label: 'Internet + Truyền hình' },
+  { value: 'camera', label: 'Camera Viettel' },
   { value: 'business', label: 'Internet doanh nghiệp' },
 ] as const satisfies readonly ServiceOption[];
 

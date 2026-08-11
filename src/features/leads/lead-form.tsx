@@ -2,6 +2,7 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { AlertCircleIcon, CheckCircle2Icon, LoaderCircleIcon, WifiIcon } from 'lucide-react';
+import Link from 'next/link';
 import { useEffect, useMemo, useState } from 'react';
 import { Controller, useForm, useWatch } from 'react-hook-form';
 
@@ -61,6 +62,7 @@ function LeadForm({ market }: LeadFormProps) {
       address: '',
       district: '',
       phone: '',
+      privacyConsent: false,
       website: '',
     },
     mode: 'onBlur',
@@ -110,6 +112,7 @@ function LeadForm({ market }: LeadFormProps) {
         address: '',
         district: '',
         phone: '',
+        privacyConsent: false,
         website: '',
       });
     } catch (error) {
@@ -135,7 +138,9 @@ function LeadForm({ market }: LeadFormProps) {
         <div className="flex items-start justify-between gap-4">
           <div>
             <CardTitle className="text-lg">Đăng ký lắp đặt</CardTitle>
-            <CardDescription className="mt-1">Phản hồi nhanh trong giờ làm việc</CardDescription>
+            <CardDescription className="mt-1">
+              Mục tiêu phản hồi ban đầu trong khoảng 5 phút
+            </CardDescription>
           </div>
           <span className="bg-accent text-primary grid size-11 shrink-0 place-items-center rounded-xl">
             <WifiIcon className="size-5" aria-hidden="true" />
@@ -276,6 +281,35 @@ function LeadForm({ market }: LeadFormProps) {
               {...form.register('phone')}
             />
             <FieldError id="lead-phone-error" message={form.formState.errors.phone?.message} />
+          </div>
+
+          <div>
+            <label className="text-muted-foreground flex items-start gap-2.5 text-xs leading-5">
+              <input
+                type="checkbox"
+                className="accent-primary mt-0.5 size-4 shrink-0"
+                aria-invalid={Boolean(form.formState.errors.privacyConsent)}
+                aria-describedby={
+                  form.formState.errors.privacyConsent ? 'lead-consent-error' : undefined
+                }
+                {...form.register('privacyConsent')}
+              />
+              <span>
+                Tôi đồng ý cho xử lý thông tin để tư vấn theo{' '}
+                <Link
+                  href="/chinh-sach-bao-mat"
+                  target="_blank"
+                  className="text-primary font-bold underline underline-offset-2"
+                >
+                  chính sách bảo mật
+                </Link>
+                .
+              </span>
+            </label>
+            <FieldError
+              id="lead-consent-error"
+              message={form.formState.errors.privacyConsent?.message}
+            />
           </div>
 
           {notice && (

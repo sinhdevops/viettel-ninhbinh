@@ -3,6 +3,7 @@
 import { ChevronRightIcon, MenuIcon, MessageCircleIcon, PhoneIcon } from 'lucide-react';
 import Link from 'next/link';
 
+import { TrackedContactLink } from '@/components/tracking/tracked-contact-link';
 import { Button } from '@/components/ui/button';
 import {
   Sheet,
@@ -20,7 +21,7 @@ import { siteConfig } from '@/config/site';
 import { SiteBrand } from './site-brand';
 
 interface MobileNavigationProps {
-  market: MarketConfig;
+  market?: MarketConfig;
 }
 
 function MobileNavigation({ market }: MobileNavigationProps) {
@@ -34,10 +35,10 @@ function MobileNavigation({ market }: MobileNavigationProps) {
 
       <SheetContent side="right" className="w-[min(22rem,90vw)]">
         <SheetHeader className="border-border border-b px-5 py-4 pr-16">
-          <SiteBrand market={market} />
+          <SiteBrand />
           <SheetTitle className="sr-only">Menu điều hướng</SheetTitle>
           <SheetDescription className="sr-only">
-            Điều hướng dịch vụ và liên hệ {market.siteName}
+            Điều hướng dịch vụ và liên hệ {market?.siteName ?? siteConfig.name}
           </SheetDescription>
         </SheetHeader>
 
@@ -71,16 +72,26 @@ function MobileNavigation({ market }: MobileNavigationProps) {
             </p>
           </div>
           <Button asChild className="w-full">
-            <a href={siteConfig.phone.href}>
+            <TrackedContactLink
+              channel="phone"
+              placement="mobile_menu"
+              href={siteConfig.phone.href}
+            >
               <PhoneIcon />
               Gọi {siteConfig.phone.display}
-            </a>
+            </TrackedContactLink>
           </Button>
           <Button asChild variant="outline" className="w-full">
-            <a href={siteConfig.zaloUrl} target="_blank" rel="noopener noreferrer">
+            <TrackedContactLink
+              channel="zalo"
+              placement="mobile_menu"
+              href={siteConfig.zaloUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <MessageCircleIcon />
               Chat Zalo
-            </a>
+            </TrackedContactLink>
           </Button>
         </SheetFooter>
       </SheetContent>

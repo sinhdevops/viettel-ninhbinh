@@ -2,6 +2,7 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { LoaderCircleIcon } from 'lucide-react';
+import Link from 'next/link';
 import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -19,6 +20,7 @@ const quickLeadSchema = leadSchema.pick({
   address: true,
   district: true,
   phone: true,
+  privacyConsent: true,
   website: true,
 });
 
@@ -32,7 +34,7 @@ function QuickLeadForm({ market }: QuickLeadFormProps) {
   const [notice, setNotice] = useState<{ message: string; type: 'error' | 'success' } | null>(null);
   const form = useForm<QuickLeadValues>({
     resolver: zodResolver(quickLeadSchema),
-    defaultValues: { address: '', district: '', phone: '', website: '' },
+    defaultValues: { address: '', district: '', phone: '', privacyConsent: false, website: '' },
   });
 
   async function onSubmit(values: QuickLeadValues) {
@@ -110,6 +112,26 @@ function QuickLeadForm({ market }: QuickLeadFormProps) {
         {...form.register('website')}
       />
 
+      <label className="flex items-start gap-2 text-xs leading-5 text-white/90 lg:col-span-4">
+        <input
+          type="checkbox"
+          className="mt-0.5 size-4 shrink-0 accent-white"
+          aria-invalid={Boolean(form.formState.errors.privacyConsent)}
+          {...form.register('privacyConsent')}
+        />
+        <span>
+          Tôi đồng ý{' '}
+          <Link
+            href="/chinh-sach-bao-mat"
+            target="_blank"
+            className="font-bold underline underline-offset-2"
+          >
+            chính sách bảo mật
+          </Link>{' '}
+          để được liên hệ tư vấn.
+        </span>
+      </label>
+
       <Button
         type="submit"
         className="bg-[#10263f] px-5 hover:bg-[#172f4d]"
@@ -121,11 +143,13 @@ function QuickLeadForm({ market }: QuickLeadFormProps) {
 
       {(form.formState.errors.address ||
         form.formState.errors.district ||
-        form.formState.errors.phone) && (
+        form.formState.errors.phone ||
+        form.formState.errors.privacyConsent) && (
         <p className="rounded-lg bg-white/95 px-3 py-2 text-xs font-semibold text-red-700 lg:col-span-4">
           {form.formState.errors.address?.message ??
             form.formState.errors.district?.message ??
-            form.formState.errors.phone?.message}
+            form.formState.errors.phone?.message ??
+            form.formState.errors.privacyConsent?.message}
         </p>
       )}
 

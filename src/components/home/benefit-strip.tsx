@@ -3,23 +3,23 @@ import { Clock3Icon, GaugeIcon, ShieldCheckIcon, WifiIcon } from 'lucide-react';
 const benefits = [
   {
     icon: GaugeIcon,
-    title: 'Mạng Viettel tốc độ cao',
-    description: 'Hạ tầng hiện đại, phủ rộng',
+    title: 'Nhiều lựa chọn tốc độ',
+    description: 'Chọn theo nhu cầu thực tế',
   },
   {
     icon: WifiIcon,
-    title: 'Ổn định mọi lúc mọi nơi',
-    description: 'Cam kết chất lượng đường truyền',
+    title: 'Kiểm tra theo địa chỉ',
+    description: 'Xác nhận hạ tầng trước đăng ký',
   },
   {
     icon: Clock3Icon,
     title: 'Hỗ trợ 24/7',
-    description: 'Kỹ thuật viên có mặt nhanh',
+    description: 'Tổng đài kỹ thuật 1800 8119',
   },
   {
     icon: ShieldCheckIcon,
-    title: 'An toàn & bảo mật',
-    description: 'Bảo vệ thiết bị và dữ liệu',
+    title: 'Tư vấn minh bạch',
+    description: 'Xác nhận phí và thiết bị',
   },
 ] as const;
 
