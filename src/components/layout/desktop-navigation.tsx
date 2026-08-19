@@ -1,9 +1,11 @@
 import Link from 'next/link';
 
+import type { MarketConfig } from '@/config/markets';
 import { siteConfig } from '@/config/site';
 import { cn } from '@/lib/utils';
 
 interface DesktopNavigationProps {
+  market?: MarketConfig;
   className?: string;
 }
 

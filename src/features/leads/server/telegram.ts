@@ -8,11 +8,24 @@ interface TelegramApiResponse {
 }
 
 interface TelegramLead {
+  market: string;
   service: string;
   plan: string;
-  address: string;
+  address?: string;
   district: string;
   phone: string;
+  landingPath?: string;
+  referrer?: string;
+  attribution: {
+    utmSource?: string;
+    utmMedium?: string;
+    utmCampaign?: string;
+    utmContent?: string;
+    utmTerm?: string;
+    gclid?: string;
+    gbraid?: string;
+    wbraid?: string;
+  };
 }
 
 export class TelegramConfigurationError extends Error {
@@ -56,16 +69,31 @@ function formatSubmittedAt(date: Date) {
 }
 
 function buildTelegramMessage(lead: TelegramLead) {
+  const attributionLines = [
+    lead.landingPath && `<b>Landing:</b> ${escapeHtml(lead.landingPath)}`,
+    lead.attribution.utmCampaign && `<b>Campaign:</b> ${escapeHtml(lead.attribution.utmCampaign)}`,
+    lead.attribution.utmSource && `<b>UTM source:</b> ${escapeHtml(lead.attribution.utmSource)}`,
+    lead.attribution.utmMedium && `<b>UTM medium:</b> ${escapeHtml(lead.attribution.utmMedium)}`,
+    lead.attribution.utmContent && `<b>UTM content:</b> ${escapeHtml(lead.attribution.utmContent)}`,
+    lead.attribution.utmTerm && `<b>UTM term:</b> ${escapeHtml(lead.attribution.utmTerm)}`,
+    lead.attribution.gclid && `<b>GCLID:</b> <code>${escapeHtml(lead.attribution.gclid)}</code>`,
+    lead.attribution.gbraid && `<b>GBRAID:</b> <code>${escapeHtml(lead.attribution.gbraid)}</code>`,
+    lead.attribution.wbraid && `<b>WBRAID:</b> <code>${escapeHtml(lead.attribution.wbraid)}</code>`,
+    lead.referrer && `<b>Referrer:</b> ${escapeHtml(lead.referrer)}`,
+  ].filter(Boolean);
+
   return [
     '🔔 <b>YÊU CẦU LẮP ĐẶT MỚI</b>',
     '━━━━━━━━━━━━━━',
+    `<b>Khu vực website:</b> ${escapeHtml(lead.market)}`,
     `<b>Dịch vụ:</b> ${escapeHtml(lead.service)}`,
     `<b>Gói cước:</b> ${escapeHtml(lead.plan)}`,
-    `<b>Địa chỉ:</b> ${escapeHtml(lead.address)}`,
+    `<b>Địa chỉ:</b> ${lead.address ? escapeHtml(lead.address) : 'Chưa cung cấp'}`,
     `<b>Khu vực:</b> ${escapeHtml(lead.district)}`,
     `<b>Điện thoại:</b> <code>${escapeHtml(lead.phone)}</code>`,
     `<b>Thời gian:</b> ${escapeHtml(formatSubmittedAt(new Date()))}`,
-    '<b>Nguồn:</b> Website Viettel Ninh Bình',
+    `<b>Nguồn:</b> Website ${escapeHtml(lead.market)}`,
+    ...attributionLines,
   ].join('\n');
 }
 

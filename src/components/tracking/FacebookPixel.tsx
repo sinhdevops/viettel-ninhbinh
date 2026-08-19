@@ -1,12 +1,10 @@
-'use client';
-
 import Script from 'next/script';
 
 const FB_PIXEL_ID = process.env.NEXT_PUBLIC_FB_PIXEL_ID || '';
 
 /**
  * Facebook/Meta Pixel component for ads tracking.
- * Loads with `afterInteractive` strategy to avoid blocking rendering.
+ * Loads when the browser is idle to keep the initial render responsive.
  *
  * Required env var:
  * - NEXT_PUBLIC_FB_PIXEL_ID (e.g., 123456789012345)
@@ -26,7 +24,7 @@ export function FacebookPixel() {
     <>
       <Script
         id="fb-pixel"
-        strategy="afterInteractive"
+        strategy="lazyOnload"
         dangerouslySetInnerHTML={{
           __html: `
             !function(f,b,e,v,n,t,s)

@@ -5,7 +5,7 @@ import { seoConfig } from '@/config/seo';
 export default function manifest(): MetadataRoute.Manifest {
   return {
     name: seoConfig.name,
-    short_name: 'Viettel Ninh Bình',
+    short_name: 'Dịch vụ Viettel',
     description: seoConfig.description,
     start_url: '/',
     display: 'standalone',

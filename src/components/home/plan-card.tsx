@@ -16,16 +16,9 @@ function PlanCard({ plan, service, className }: PlanCardProps) {
     <Card
       className={cn(
         'relative max-w-[22rem] min-w-[82vw] snap-center gap-0 overflow-visible rounded-2xl px-5 py-6 shadow-[0_12px_34px_rgb(17_38_63/7%)] md:max-w-none md:min-w-0',
-        plan.popular && 'border-primary shadow-[0_18px_45px_rgb(230_0_18/12%)] md:-translate-y-1',
         className
       )}
     >
-      {plan.popular && (
-        <span className="bg-primary text-primary-foreground shadow-primary absolute -top-3 left-1/2 -translate-x-1/2 rounded-full px-4 py-1.5 text-[0.6875rem] font-extrabold whitespace-nowrap">
-          Được chọn nhiều nhất
-        </span>
-      )}
-
       <h3 className="text-muted-foreground text-center text-xs font-extrabold tracking-[0.12em] uppercase">
         {plan.name}
       </h3>
@@ -53,11 +46,11 @@ function PlanCard({ plan, service, className }: PlanCardProps) {
       <PlanSelectionButton
         service={service}
         plan={plan.id}
-        aria-label={`Đăng ký gói ${plan.name}`}
-        variant={plan.popular ? 'primary' : 'outline'}
+        aria-label={`Chọn gói ${plan.name}`}
+        variant="outline"
         className="mt-5 w-full"
       >
-        Đăng ký ngay
+        Chọn gói này
       </PlanSelectionButton>
     </Card>
   );

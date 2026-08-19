@@ -18,7 +18,7 @@ function PlanSelectionButton({ service, plan, children, ...props }: PlanSelectio
   return (
     <Button asChild {...props}>
       <a
-        href={`/?${searchParams.toString()}#coverage`}
+        href={`?${searchParams.toString()}#coverage`}
         onClick={(event) => {
           event.preventDefault();
           selectPlan(service, plan);

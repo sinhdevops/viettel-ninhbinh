@@ -1,13 +1,14 @@
 import { NextResponse } from 'next/server';
 
-import { planOptions, regions, serviceOptions } from '@/data/home';
+import { getMarketById } from '@/config/markets';
+import { planOptions, serviceOptions } from '@/data/home';
 import { leadSchema } from '@/features/leads/lead-schema';
 import { sendLeadToTelegram, TelegramConfigurationError } from '@/features/leads/server/telegram';
 
 const MAX_REQUEST_SIZE_BYTES = 10_000;
 
-function jsonMessage(message: string, status = 200) {
-  return NextResponse.json({ message }, { status });
+function jsonMessage(message: string, status = 200, accepted = false) {
+  return NextResponse.json({ accepted, message }, { status });
 }
 
 export async function POST(request: Request) {
@@ -31,14 +32,34 @@ export async function POST(request: Request) {
     return jsonMessage(result.error.issues[0]?.message ?? 'Vui lòng kiểm tra lại thông tin.', 422);
   }
 
-  const { service, plan, address, district, phone, website } = result.data;
+  const {
+    market: marketId,
+    service,
+    plan,
+    address,
+    district,
+    phone,
+    landingPath,
+    referrer,
+    utmSource,
+    utmMedium,
+    utmCampaign,
+    utmContent,
+    utmTerm,
+    gclid,
+    gbraid,
+    wbraid,
+    website,
+  } = result.data;
 
   // Honeypot: silently accept automated submissions without forwarding personal data.
   if (website) {
     return jsonMessage('Đã ghi nhận yêu cầu.');
   }
 
-  if (!regions.some((region) => region === district)) {
+  const market = getMarketById(marketId);
+
+  if (!market.regions.some((region) => region === district)) {
     return jsonMessage('Khu vực đã chọn không hợp lệ.', 422);
   }
 
@@ -56,14 +77,31 @@ export async function POST(request: Request) {
 
   try {
     await sendLeadToTelegram({
+      market: market.siteName,
       service: serviceLabel,
       plan: planLabel,
       address,
       district,
       phone: normalizedPhone,
+      landingPath,
+      referrer,
+      attribution: {
+        utmSource,
+        utmMedium,
+        utmCampaign,
+        utmContent,
+        utmTerm,
+        gclid,
+        gbraid,
+        wbraid,
+      },
     });
 
-    return jsonMessage('Đã ghi nhận thông tin. Chúng tôi sẽ liên hệ lại sớm.');
+    return jsonMessage(
+      'Đã nhận yêu cầu. Nhân viên sẽ liên hệ để xác nhận hạ tầng, chi phí và lịch dự kiến.',
+      200,
+      true
+    );
   } catch (error) {
     if (error instanceof TelegramConfigurationError) {
       return jsonMessage(

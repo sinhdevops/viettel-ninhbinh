@@ -7,7 +7,16 @@ import { cn } from '@/lib/utils';
 
 const Select = SelectPrimitive.Root;
 const SelectGroup = SelectPrimitive.Group;
-const SelectValue = SelectPrimitive.Value;
+
+function SelectValue({ className, ...props }: React.ComponentProps<typeof SelectPrimitive.Value>) {
+  return (
+    <SelectPrimitive.Value
+      data-slot="select-value"
+      className={cn('min-w-0 flex-1 truncate text-left', className)}
+      {...props}
+    />
+  );
+}
 
 function SelectTrigger({
   className,
@@ -22,7 +31,7 @@ function SelectTrigger({
       data-slot="select-trigger"
       data-size={size}
       className={cn(
-        'border-input bg-background text-foreground data-[placeholder]:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/10 disabled:bg-muted aria-invalid:border-destructive aria-invalid:ring-destructive/10 flex w-full items-center justify-between gap-2 rounded-md border px-3.5 text-sm shadow-xs transition-[color,box-shadow,border-color] outline-none focus-visible:ring-3 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-60 aria-invalid:ring-3 data-[size=default]:h-11 data-[size=sm]:h-9 [&_[data-slot=select-value]]:truncate [&_svg]:pointer-events-none [&_svg]:shrink-0',
+        'border-input bg-background text-foreground data-[placeholder]:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/10 disabled:bg-muted aria-invalid:border-destructive aria-invalid:ring-destructive/10 flex w-full items-center justify-between gap-2 rounded-md border px-3.5 text-sm shadow-xs transition-[color,box-shadow,border-color] outline-none focus-visible:ring-3 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-60 aria-invalid:ring-3 data-[size=default]:h-11 data-[size=sm]:h-9 [&_svg]:pointer-events-none [&_svg]:shrink-0',
         className
       )}
       {...props}

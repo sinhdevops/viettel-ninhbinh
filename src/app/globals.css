@@ -1,4 +1,5 @@
-@import 'tailwindcss';
+@import 'tailwindcss' source(none);
+@source '../';
 
 :root {
   --background: #ffffff;
@@ -46,8 +47,7 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --radius-sm: calc(var(--radius) - 2px);
   --radius-md: var(--radius);
   --radius-lg: calc(var(--radius) + 4px);
@@ -60,5 +60,60 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  font-family:
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    sans-serif;
+}
+
+@keyframes page-scroll-progress {
+  from {
+    transform: scaleX(0);
+  }
+
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.scroll-progress-indicator {
+  transform: scaleX(0);
+}
+
+@supports (animation-timeline: scroll()) {
+  .scroll-progress-indicator {
+    animation: page-scroll-progress linear both;
+    animation-timeline: scroll(root block);
+  }
+}
+
+main > section:not(:first-child) {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 48rem;
+}
+
+@media (width < 40rem) {
+  body {
+    padding-bottom: calc(4.5rem + env(safe-area-inset-bottom));
+  }
+}
+
+@media (width < 64rem) {
+  main section[id],
+  main [id='coverage'] {
+    scroll-margin-top: 8rem !important;
+  }
+}
+
+.floating-contact-bottom {
+  bottom: max(1rem, env(safe-area-inset-bottom));
+}
+
+@media (width >= 48rem) {
+  .floating-contact-bottom {
+    bottom: max(1.5rem, env(safe-area-inset-bottom));
+  }
 }
