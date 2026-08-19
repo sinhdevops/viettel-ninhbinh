@@ -17,12 +17,12 @@ export const servicePages = {
     id: 'internet',
     path: '/internet-viettel',
     eyebrow: 'Internet cáp quang',
-    title: 'Internet Viettel cho gia đình và cá nhân',
+    title: 'Internet Viettel và Wi-Fi Mesh cho gia đình',
     description:
-      'Tìm hiểu nhóm gói Internet, Wi-Fi Mesh và cách kiểm tra khả năng cung cấp tại địa chỉ cần lắp đặt.',
-    seoTitle: 'Internet Viettel | Gói cáp quang & Wi-Fi Mesh',
+      'Tìm hiểu Internet cáp quang, modem Wi-Fi 6, Wi-Fi Mesh và cách chọn gói theo mặt bằng, số thiết bị tại nhà.',
+    seoTitle: 'Internet Viettel | Wi-Fi 6, Mesh & Gói Cáp Quang',
     seoDescription:
-      'Thông tin Internet cáp quang và Wi-Fi Mesh Viettel cho gia đình. Chọn khu vực để kiểm tra hạ tầng, thiết bị và gói phù hợp.',
+      'So sánh gói Internet Viettel từ 300 Mbps, modem Wi-Fi 6 và Wi-Fi Mesh. Chọn khu vực để kiểm tra hạ tầng, giá và thiết bị.',
     highlights: [
       'Internet cáp quang',
       'Wi-Fi Mesh',
@@ -48,12 +48,12 @@ export const servicePages = {
     id: 'television',
     path: '/truyen-hinh-viettel',
     eyebrow: 'Truyền hình TV360',
-    title: 'Internet kết hợp truyền hình Viettel',
+    title: 'Truyền hình TV360 và combo Internet Viettel',
     description:
-      'Khám phá nhóm combo Internet + TV360 và xác nhận nội dung, thiết bị, quyền lợi theo gói đăng ký.',
-    seoTitle: 'Truyền hình Viettel TV360 | Combo Internet + TV',
+      'Xem TV360 trên App hoặc Box, lựa chọn gói Truyền hình riêng và combo Internet + TV360 theo thiết bị đang sử dụng.',
+    seoTitle: 'Truyền hình Viettel TV360 | App, Box & Combo Internet',
     seoDescription:
-      'Tìm hiểu truyền hình TV360 và combo Internet Viettel. Kiểm tra gói, thiết bị và khả năng cung cấp theo khu vực.',
+      'Tìm hiểu Truyền hình TV360 trên App, TV360 Box và combo Internet Viettel. So sánh gói, thiết bị và kiểm tra khả năng cung cấp.',
     highlights: [
       'TV360',
       'Combo Internet + TV',
@@ -76,12 +76,12 @@ export const servicePages = {
     id: 'camera',
     path: '/camera-viettel',
     eyebrow: 'Camera Viettel',
-    title: 'Giải pháp camera cho gia đình và kinh doanh',
+    title: 'Camera Viettel cho gia đình và kinh doanh',
     description:
-      'Tư vấn thiết bị, vùng quan sát, lưu trữ và phương án lắp đặt dựa trên mặt bằng thực tế.',
-    seoTitle: 'Camera Viettel | Gia đình, Cửa hàng & Doanh nghiệp',
+      'Camera trong nhà, ngoài trời và lưu trữ Cloud. Tư vấn thiết bị, vùng quan sát và phương án lắp đặt dựa trên mặt bằng thực tế.',
+    seoTitle: 'Camera Viettel | Trong nhà, Ngoài trời & Cloud',
     seoDescription:
-      'Tư vấn camera Viettel cho gia đình, cửa hàng và doanh nghiệp. Xác nhận thiết bị, lưu trữ và phương án lắp đặt theo nhu cầu.',
+      'Tìm hiểu Camera Viettel trong nhà, ngoài trời, lưu trữ Cloud và combo Internet Camera. Chọn khu vực để kiểm tra khả năng lắp đặt.',
     highlights: [
       'Tư vấn vị trí lắp',
       'Phương án lưu trữ',
@@ -101,12 +101,12 @@ export const servicePages = {
     id: 'business',
     path: '/internet-doanh-nghiep',
     eyebrow: 'Kết nối doanh nghiệp',
-    title: 'Internet Viettel cho doanh nghiệp',
+    title: 'Internet Viettel cho doanh nghiệp và tổ chức',
     description:
       'Tìm hiểu nhóm đường truyền doanh nghiệp, băng thông quốc tế và IP tĩnh theo quy mô vận hành.',
-    seoTitle: 'Internet Viettel Doanh nghiệp | Đường truyền & IP tĩnh',
+    seoTitle: 'Internet Viettel Doanh nghiệp | Gói Pro, Mesh & IP tĩnh',
     seoDescription:
-      'Tư vấn Internet Viettel cho doanh nghiệp: đường truyền, băng thông quốc tế và IP tĩnh theo nhu cầu và khu vực.',
+      'So sánh gói Internet Viettel doanh nghiệp Pro, MeshPro, băng thông quốc tế và giải pháp IP tĩnh. Kiểm tra hạ tầng theo địa chỉ.',
     highlights: [
       'Đường truyền doanh nghiệp',
       'Băng thông quốc tế',

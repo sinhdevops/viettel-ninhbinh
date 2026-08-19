@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import { getMarketHashHref, type MarketConfig } from '@/config/markets';
+import type { MarketConfig } from '@/config/markets';
 import { siteConfig } from '@/config/site';
 import { cn } from '@/lib/utils';
 
@@ -9,13 +9,13 @@ interface DesktopNavigationProps {
   className?: string;
 }
 
-function DesktopNavigation({ market, className }: DesktopNavigationProps) {
+function DesktopNavigation({ className }: DesktopNavigationProps) {
   return (
     <nav aria-label="Điều hướng chính" className={cn('items-stretch', className)}>
       {siteConfig.navigation.map((item) => (
         <Link
           key={item.href}
-          href={getMarketHashHref(market, item.href)}
+          href={item.href}
           className="group text-foreground/85 hover:text-primary focus-visible:text-primary relative inline-flex items-center px-1 text-sm font-semibold whitespace-nowrap transition-colors outline-none"
         >
           {item.label}

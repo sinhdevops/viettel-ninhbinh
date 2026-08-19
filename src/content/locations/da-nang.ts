@@ -16,7 +16,7 @@ export const daNangMarket = {
   ],
   hero: {
     eyebrow: 'Tư vấn dịch vụ Viettel tại Đà Nẵng',
-    title: 'Lắp Internet Viettel tại Đà Nẵng',
+    title: 'Kiểm tra hạ tầng Viettel tại Đà Nẵng',
     description:
       'Chọn dịch vụ theo nhu cầu gia đình hoặc doanh nghiệp và kiểm tra khả năng cung cấp tại địa chỉ trước khi đăng ký.',
     highlights: [

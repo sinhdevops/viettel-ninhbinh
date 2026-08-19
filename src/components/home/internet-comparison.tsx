@@ -8,18 +8,18 @@ interface ComparisonTableProps {
 }
 
 function ComparisonTable({ className }: ComparisonTableProps) {
+  const displayedPlans = internetPlans.slice(0, 3);
   return (
     <div className={cn('overflow-x-auto rounded-xl border border-red-100', className)}>
       <table className="w-full min-w-[760px] border-collapse text-xs">
         <thead>
           <tr>
             <th className="bg-[#17243a] px-4 py-3 text-left font-extrabold text-white">Gói cước</th>
-            {internetPlans.map((plan) => (
+            {displayedPlans.map((plan) => (
               <th
                 key={plan.id}
                 className={cn(
-                  'bg-primary text-primary-foreground px-4 py-3 text-center font-extrabold',
-                  'popular' in plan && plan.popular && 'bg-primary-hover'
+                  'bg-primary text-primary-foreground px-4 py-3 text-center font-extrabold'
                 )}
               >
                 {plan.name}
@@ -32,7 +32,7 @@ function ComparisonTable({ className }: ComparisonTableProps) {
             <th className="bg-accent text-accent-foreground border-t border-red-100 px-4 py-3 text-left font-extrabold">
               Tốc độ
             </th>
-            {internetPlans.map((plan) => (
+            {displayedPlans.map((plan) => (
               <td
                 key={plan.id}
                 className="bg-card border-t border-l border-red-100 px-4 py-3 text-center"
@@ -45,7 +45,7 @@ function ComparisonTable({ className }: ComparisonTableProps) {
             <th className="bg-accent text-accent-foreground border-t border-red-100 px-4 py-3 text-left font-extrabold">
               Thiết bị
             </th>
-            {internetPlans.map((plan) => (
+            {displayedPlans.map((plan) => (
               <td
                 key={plan.id}
                 className="bg-card border-t border-l border-red-100 px-4 py-3 text-center"
@@ -58,7 +58,7 @@ function ComparisonTable({ className }: ComparisonTableProps) {
             <th className="bg-accent text-accent-foreground border-t border-red-100 px-4 py-3 text-left font-extrabold">
               Giá cước
             </th>
-            {internetPlans.map((plan) => (
+            {displayedPlans.map((plan) => (
               <td
                 key={plan.id}
                 className="bg-card text-primary border-t border-l border-red-100 px-4 py-3 text-center font-black"
@@ -78,16 +78,14 @@ function InternetComparison() {
     <>
       <details className="group bg-card mt-8 rounded-2xl border border-red-100 p-4 shadow-[0_12px_35px_rgb(230_0_18/7%)] md:hidden">
         <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between gap-3 font-extrabold [&::-webkit-details-marker]:hidden">
-          So sánh chi tiết các gói
+          So sánh nhanh các gói
           <ChevronDownIcon className="text-primary size-5 transition-transform group-open:rotate-180" />
         </summary>
         <ComparisonTable className="mt-4" />
       </details>
 
       <div className="bg-card mt-8 hidden rounded-2xl border border-red-100 p-6 shadow-[0_12px_35px_rgb(230_0_18/7%)] md:block">
-        <h3 className="text-foreground mb-4 text-lg font-black">
-          So sánh chi tiết các gói Internet
-        </h3>
+        <h3 className="text-foreground mb-4 text-lg font-black">So sánh nhanh các gói Internet</h3>
         <ComparisonTable />
       </div>
     </>

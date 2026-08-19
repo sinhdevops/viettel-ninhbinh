@@ -1,12 +1,11 @@
-'use client';
-
 import Script from 'next/script';
 
 import { GA_MEASUREMENT_ID, GTM_ID } from '@/lib/gtag';
 
 /**
  * Google Tag Manager component.
- * Loads GTM + GA4 scripts with `afterInteractive` strategy to avoid blocking rendering.
+ * Loads GTM or falls back to direct GA4 when GTM is not configured.
+ * This avoids sending duplicate page views through both integrations.
  *
  * Required env vars:
  * - NEXT_PUBLIC_GTM_ID (e.g., GTM-XXXXXXX)
@@ -17,9 +16,10 @@ import { GA_MEASUREMENT_ID, GTM_ID } from '@/lib/gtag';
 export function GoogleTagManager() {
   if (!GTM_ID && !GA_MEASUREMENT_ID) return null;
 
+  const shouldLoadDirectAnalytics = Boolean(GA_MEASUREMENT_ID && !GTM_ID);
+
   return (
     <>
-      {/* Google Tag Manager */}
       {GTM_ID && (
         <Script
           id="gtm-script"
@@ -36,8 +36,7 @@ export function GoogleTagManager() {
         />
       )}
 
-      {/* Google Analytics 4 */}
-      {GA_MEASUREMENT_ID && (
+      {shouldLoadDirectAnalytics && (
         <>
           <Script
             src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}

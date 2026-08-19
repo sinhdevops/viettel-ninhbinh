@@ -4,10 +4,16 @@ import Link from 'next/link';
 import { Container, FloatingContact, SiteFooter, SiteHeader } from '@/components/layout';
 import { siteConfig } from '@/config/site';
 import type { TrustPageContent } from '@/content/trust-pages';
+import { TrustPageJsonLd } from '@/lib/structured-data';
 
 function TrustPage({ content }: { content: TrustPageContent }) {
   return (
     <>
+      <TrustPageJsonLd
+        title={content.title}
+        description={content.description}
+        path={`/${content.slug}`}
+      />
       <SiteHeader />
       <main id="main-content" className="flex-1" tabIndex={-1}>
         <header className="border-border bg-secondary/55 border-b py-10 sm:py-14">

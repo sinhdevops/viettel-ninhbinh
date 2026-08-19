@@ -11,12 +11,12 @@ export const ninhBinhMarket = {
   regions: ninhBinhRegions,
   areaServed: ['Ninh Bình', 'Hà Nam', 'Nam Định'],
   localIntroduction: [
-    'Tiếp nhận nhu cầu lắp Internet, Wi-Fi Mesh, TV360, camera và đường truyền doanh nghiệp tại khu vực Ninh Bình.',
+    'Tiếp nhận nhu cầu lắp Internet, Wi-Fi Mesh, TV360, camera và đường truyền doanh nghiệp tại 129 phường, xã của tỉnh Ninh Bình mới.',
     'Khả năng cung cấp, thiết bị và lịch lắp đặt được kiểm tra theo từng địa chỉ trước khi khách hàng xác nhận đăng ký.',
   ],
   hero: {
     eyebrow: 'Tư vấn dịch vụ Viettel tại Ninh Bình',
-    title: 'Lắp Internet Viettel tại Ninh Bình',
+    title: 'Kiểm tra hạ tầng Viettel tại Ninh Bình',
     description:
       'Kiểm tra hạ tầng theo địa chỉ, chọn gói theo nhu cầu và xác nhận rõ chi phí, thiết bị trước khi đăng ký.',
     highlights: [
@@ -35,7 +35,7 @@ export const ninhBinhMarket = {
     {
       question: 'Phí hòa mạng tại Ninh Bình là bao nhiêu?',
       answer:
-        'Phí hòa mạng hiện được tư vấn là 300.000đ. Tổng chi phí còn phụ thuộc gói cước, hình thức trả trước và chính sách tại thời điểm đăng ký.',
+        'Phí hòa mạng tham khảo từ 300.000đ/thuê bao. Mức áp dụng, tổng chi phí và điều kiện trả trước được xác nhận theo dịch vụ, thiết bị, địa chỉ và chính sách tại thời điểm đăng ký.',
     },
     {
       question: 'Có thể đăng ký Wi-Fi Mesh hoặc TV360 không?',

@@ -18,8 +18,8 @@ function LocationDirectorySection() {
       <Container>
         <SectionHeading
           eyebrow="Khu vực lắp đặt"
-          title="Chọn đúng landing page địa phương"
-          description="Mỗi trang có nội dung, khu vực và form riêng để kiểm tra hạ tầng chính xác hơn."
+          title="Bạn cần lắp đặt tại đâu?"
+          description="Chọn tỉnh, thành phố để xem danh sách phường, xã và gửi địa chỉ kiểm tra khả năng cung cấp."
         />
         <div className="mx-auto mt-9 grid max-w-4xl gap-4 md:grid-cols-2">
           {publishedLocations.map((market) => (

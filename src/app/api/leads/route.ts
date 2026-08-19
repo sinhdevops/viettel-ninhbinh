@@ -97,7 +97,11 @@ export async function POST(request: Request) {
       },
     });
 
-    return jsonMessage('Đã ghi nhận thông tin. Chúng tôi sẽ liên hệ lại sớm.', 200, true);
+    return jsonMessage(
+      'Đã nhận yêu cầu. Nhân viên sẽ liên hệ để xác nhận hạ tầng, chi phí và lịch dự kiến.',
+      200,
+      true
+    );
   } catch (error) {
     if (error instanceof TelegramConfigurationError) {
       return jsonMessage(

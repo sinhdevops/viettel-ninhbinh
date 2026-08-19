@@ -19,7 +19,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: absoluteUrl('/'),
       changeFrequency: 'weekly',
       priority: 1,
-      images: [absoluteUrl('/images/hero-network.png')],
+      images: [absoluteUrl('/images/hero-network.webp')],
     },
     ...Object.values(servicePages).map((service) => ({
       url: absoluteUrl(service.path),

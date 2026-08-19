@@ -1,10 +1,9 @@
-import { ArrowRightIcon, CheckCircle2Icon, MessageCircleIcon } from 'lucide-react';
+import { ArrowRightIcon, CheckCircle2Icon, MapPinnedIcon } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 
 import { Container } from '@/components/layout/container';
 import { Button } from '@/components/ui/button';
-import { siteConfig } from '@/config/site';
 import { IMAGE_PATHS } from '@/constants/images';
 
 const highlights = [
@@ -47,18 +46,22 @@ function GlobalHeroSection() {
           </ul>
           <div className="mt-8 flex flex-col gap-3 min-[420px]:flex-row">
             <Button asChild size="lg">
-              <Link href="#services">
-                Khám phá dịch vụ
-                <ArrowRightIcon />
+              <Link href="#locations">
+                <MapPinnedIcon />
+                Chọn khu vực cần lắp
               </Link>
             </Button>
             <Button asChild size="lg" variant="outline">
-              <a href={siteConfig.zaloUrl} target="_blank" rel="noopener noreferrer">
-                <MessageCircleIcon />
-                Tư vấn qua Zalo
-              </a>
+              <Link href="#services">
+                Xem các dịch vụ
+                <ArrowRightIcon />
+              </Link>
             </Button>
           </div>
+          <p className="text-muted-foreground mt-5 max-w-xl text-xs leading-5">
+            Đây là website tiếp nhận nhu cầu tư vấn. Gửi yêu cầu không làm phát sinh hợp đồng hoặc
+            chi phí; giá và lịch lắp đặt được xác nhận trước khi bạn quyết định.
+          </p>
         </div>
 
         <div className="relative mx-auto aspect-[4/3] w-full max-w-2xl overflow-hidden rounded-[2rem] shadow-[0_28px_80px_rgb(25_44_72/18%)]">
@@ -66,13 +69,13 @@ function GlobalHeroSection() {
             src={IMAGE_PATHS.heroNetwork}
             alt="Giải pháp Internet và Wi-Fi Viettel cho gia đình"
             fill
-            priority
+            preload
             sizes="(max-width: 1023px) 100vw, 50vw"
             className="object-cover object-[65%_center]"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#101d32]/55 via-transparent to-transparent" />
           <p className="absolute right-5 bottom-5 left-5 text-sm leading-6 font-bold text-white sm:text-base">
-            Chọn đúng dịch vụ và đúng landing địa phương trước khi gửi yêu cầu.
+            Chọn tỉnh, thành phố cần lắp để xem khu vực hỗ trợ và gửi địa chỉ kiểm tra hạ tầng.
           </p>
         </div>
       </Container>

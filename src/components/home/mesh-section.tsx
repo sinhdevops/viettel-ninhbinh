@@ -8,10 +8,10 @@ import { PlanSelectionButton } from '@/features/leads/plan-selection-button';
 import { SectionHeading } from './section-heading';
 
 const meshBenefits = [
-  { icon: WifiIcon, label: 'Mở rộng vùng phủ trong nhà' },
-  { icon: WorkflowIcon, label: 'Chuyển vùng liền mạch' },
-  { icon: RouterIcon, label: 'Kết nối nhiều thiết bị cùng lúc' },
-  { icon: ExpandIcon, label: 'Dễ dàng mở rộng khi cần' },
+  { icon: WifiIcon, label: 'Bổ sung điểm phát tại khu vực sóng yếu' },
+  { icon: WorkflowIcon, label: 'Dùng chung một hệ thống Wi-Fi trong nhà' },
+  { icon: RouterIcon, label: 'Bố trí số điểm phát theo mặt bằng' },
+  { icon: ExpandIcon, label: 'Có thể cân nhắc mở rộng khi nhu cầu thay đổi' },
 ] as const;
 
 function MeshSection() {
@@ -32,9 +32,9 @@ function MeshSection() {
 
           <div>
             <SectionHeading
-              eyebrow="Kết nối không giới hạn"
-              title="Phủ sóng thông minh với Wi-Fi Mesh"
-              description="Bố trí thêm điểm phát phù hợp với diện tích và kết cấu ngôi nhà"
+              eyebrow="Giải pháp cho nhà nhiều phòng"
+              title="Thiết kế vùng phủ với Wi-Fi Mesh"
+              description="Số điểm phát và vị trí đặt cần dựa trên diện tích, số tầng, vật cản và khu vực thường sử dụng."
               align="left"
             />
             <ul className="mt-7 grid gap-4 sm:grid-cols-2">

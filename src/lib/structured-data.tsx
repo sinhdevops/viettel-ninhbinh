@@ -136,8 +136,69 @@ function ServicePageJsonLd({ content }: { content: ServicePageContent }) {
           areaServed: { '@type': 'Country', name: 'Việt Nam' },
         }}
       />
+      <JsonLd
+        data={{
+          '@context': 'https://schema.org',
+          '@type': 'BreadcrumbList',
+          itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'Trang chủ', item: absoluteUrl('/') },
+            { '@type': 'ListItem', position: 2, name: content.title, item: pageUrl },
+          ],
+        }}
+      />
+      <JsonLd
+        data={{
+          '@context': 'https://schema.org',
+          '@type': 'WebPage',
+          '@id': `${pageUrl}#webpage`,
+          url: pageUrl,
+          name: content.seoTitle,
+          description: content.seoDescription,
+          inLanguage: seoConfig.language,
+          isPartOf: { '@id': websiteId },
+          about: { '@id': `${pageUrl}#service` },
+        }}
+      />
     </>
   );
 }
 
-export { MarketPageJsonLd, ServicePageJsonLd, SitePageJsonLd };
+interface TrustPageJsonLdProps {
+  title: string;
+  description: string;
+  path: `/${string}`;
+}
+
+function TrustPageJsonLd({ title, description, path }: TrustPageJsonLdProps) {
+  const pageUrl = absoluteUrl(path);
+
+  return (
+    <>
+      <OrganizationJsonLd />
+      <JsonLd
+        data={{
+          '@context': 'https://schema.org',
+          '@type': 'BreadcrumbList',
+          itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'Trang chủ', item: absoluteUrl('/') },
+            { '@type': 'ListItem', position: 2, name: title, item: pageUrl },
+          ],
+        }}
+      />
+      <JsonLd
+        data={{
+          '@context': 'https://schema.org',
+          '@type': 'WebPage',
+          '@id': `${pageUrl}#webpage`,
+          url: pageUrl,
+          name: title,
+          description,
+          inLanguage: seoConfig.language,
+          isPartOf: { '@id': websiteId },
+        }}
+      />
+    </>
+  );
+}
+
+export { MarketPageJsonLd, ServicePageJsonLd, SitePageJsonLd, TrustPageJsonLd };

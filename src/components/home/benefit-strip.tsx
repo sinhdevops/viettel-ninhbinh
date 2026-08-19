@@ -13,8 +13,8 @@ const benefits = [
   },
   {
     icon: Clock3Icon,
-    title: 'Hỗ trợ 24/7',
-    description: 'Tổng đài kỹ thuật 1800 8119',
+    title: 'Hỗ trợ thuê bao đang dùng',
+    description: 'Tổng đài kỹ thuật Viettel 1800 8119',
   },
   {
     icon: ShieldCheckIcon,

@@ -1,6 +1,6 @@
 export interface NavigationItem {
   label: string;
-  href: `#${string}`;
+  href: `/${string}` | '/';
 }
 
 export interface FooterNavigationItem {
@@ -23,12 +23,20 @@ export const siteConfig = {
     href: `tel:${phoneNumber}`,
   },
   zaloUrl: `https://zalo.me/${phoneDigits}`,
+  officialSupport: {
+    technicalPhone: {
+      display: '1800 8119',
+      href: 'tel:18008119',
+    },
+    websiteUrl: 'https://www.vietteltelecom.vn/',
+    myViettelUrl: 'https://vietteltelecom.vn/vx/my-viettel',
+  },
   navigation: [
-    { label: 'Trang chủ', href: '#top' },
-    { label: 'Internet', href: '#plans' },
-    { label: 'Internet + Truyền hình', href: '#combo' },
-    { label: 'Camera', href: '#camera' },
-    { label: 'Doanh nghiệp', href: '#business' },
+    { label: 'Trang chủ', href: '/' },
+    { label: 'Internet', href: '/internet-viettel' },
+    { label: 'Truyền hình', href: '/truyen-hinh-viettel' },
+    { label: 'Camera', href: '/camera-viettel' },
+    { label: 'Doanh nghiệp', href: '/internet-doanh-nghiep' },
   ] satisfies readonly NavigationItem[],
   footerNavigation: {
     services: [

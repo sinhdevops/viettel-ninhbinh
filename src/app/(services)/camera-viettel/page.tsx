@@ -1,4 +1,4 @@
-import { ServiceDetailPage } from '@/components/services/service-detail-page';
+import { CameraServicePage } from '@/components/services/camera-service-page';
 import { servicePages } from '@/content/services';
 import { generateMetadata } from '@/lib/seo';
 
@@ -11,5 +11,5 @@ export const metadata = generateMetadata({
 });
 
 export default function CameraPage() {
-  return <ServiceDetailPage content={content} />;
+  return <CameraServicePage />;
 }

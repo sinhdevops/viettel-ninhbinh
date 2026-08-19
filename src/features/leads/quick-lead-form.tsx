@@ -2,25 +2,32 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { LoaderCircleIcon } from 'lucide-react';
-import Link from 'next/link';
 import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { z } from 'zod';
 
 import { Button } from '@/components/ui/button';
+import { FormLabel } from '@/components/ui/form-label';
 import { Input } from '@/components/ui/input';
 import { SearchableSelect } from '@/components/ui/searchable-select';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import type { MarketConfig } from '@/config/markets';
+import { serviceOptions, type ServiceValue } from '@/data/home';
 import { cn } from '@/lib/utils';
 
 import { leadSchema, type LeadFormValues } from './lead-schema';
 import { submitLead } from './submit-lead';
 
 const quickLeadSchema = leadSchema.pick({
-  address: true,
+  service: true,
   district: true,
   phone: true,
-  privacyConsent: true,
   website: true,
 });
 
@@ -34,7 +41,12 @@ function QuickLeadForm({ market }: QuickLeadFormProps) {
   const [notice, setNotice] = useState<{ message: string; type: 'error' | 'success' } | null>(null);
   const form = useForm<QuickLeadValues>({
     resolver: zodResolver(quickLeadSchema),
-    defaultValues: { address: '', district: '', phone: '', privacyConsent: false, website: '' },
+    defaultValues: {
+      service: 'internet',
+      district: '',
+      phone: '',
+      website: '',
+    },
   });
 
   async function onSubmit(values: QuickLeadValues) {
@@ -44,8 +56,8 @@ function QuickLeadForm({ market }: QuickLeadFormProps) {
       const payload: LeadFormValues = {
         ...values,
         market: market.id,
-        service: 'internet',
         plan: '',
+        address: '',
       };
       const message = await submitLead(payload);
       setNotice({ message, type: 'success' });
@@ -58,98 +70,114 @@ function QuickLeadForm({ market }: QuickLeadFormProps) {
     }
   }
 
+  const firstError =
+    form.formState.errors.service?.message ??
+    form.formState.errors.district?.message ??
+    form.formState.errors.phone?.message;
+
   return (
     <form
-      className="grid gap-2 lg:grid-cols-[1.2fr_1fr_0.85fr_auto]"
+      className="grid gap-3 lg:grid-cols-[1.05fr_1.15fr_0.9fr_auto] lg:items-end"
       onSubmit={form.handleSubmit(onSubmit)}
       noValidate
     >
-      <Input
-        required
-        aria-label="Địa chỉ cần lắp đặt"
-        placeholder="Nhập số nhà, tên đường"
-        className="text-foreground border-0 bg-white"
-        aria-invalid={Boolean(form.formState.errors.address)}
-        {...form.register('address')}
+      <Controller
+        control={form.control}
+        name="service"
+        render={({ field, fieldState }) => (
+          <div>
+            <FormLabel htmlFor="quick-service" className="text-white" isRequired>
+              Dịch vụ
+            </FormLabel>
+            <Select
+              value={field.value}
+              onValueChange={(value) => field.onChange(value as ServiceValue)}
+            >
+              <SelectTrigger
+                id="quick-service"
+                className="text-foreground border-0 bg-white"
+                aria-invalid={fieldState.invalid}
+                aria-describedby={fieldState.error ? 'quick-error' : undefined}
+              >
+                <SelectValue placeholder="Chọn dịch vụ">
+                  {serviceOptions.find((service) => service.value === field.value)?.label}
+                </SelectValue>
+              </SelectTrigger>
+              <SelectContent>
+                {serviceOptions.map((service) => (
+                  <SelectItem key={service.value} value={service.value}>
+                    {service.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+        )}
       />
 
       <Controller
         control={form.control}
         name="district"
         render={({ field, fieldState }) => (
-          <SearchableSelect
-            required
-            value={field.value}
-            options={market.regions}
-            onValueChange={field.onChange}
-            placeholder="Chọn khu vực"
-            searchPlaceholder="Tìm phường, xã, khu vực..."
-            emptyMessage="Không tìm thấy khu vực phù hợp."
-            aria-label="Chọn khu vực"
-            aria-invalid={fieldState.invalid}
-            className="text-foreground border-0 bg-white"
-          />
+          <div>
+            <FormLabel htmlFor="quick-district" className="text-white" isRequired>
+              Phường, xã
+            </FormLabel>
+            <SearchableSelect
+              id="quick-district"
+              required
+              value={field.value}
+              options={market.regions}
+              onValueChange={field.onChange}
+              placeholder="Chọn phường, xã"
+              searchPlaceholder="Tìm phường, xã..."
+              emptyMessage="Không tìm thấy khu vực phù hợp."
+              aria-invalid={fieldState.invalid}
+              aria-describedby={fieldState.error ? 'quick-error' : undefined}
+              className="text-foreground border-0 bg-white"
+            />
+          </div>
         )}
       />
 
-      <Input
-        required
-        type="tel"
-        inputMode="tel"
-        autoComplete="tel"
-        aria-label="Số điện thoại"
-        placeholder="Số điện thoại"
-        className="text-foreground border-0 bg-white"
-        aria-invalid={Boolean(form.formState.errors.phone)}
-        {...form.register('phone')}
-      />
-
-      <Input
-        tabIndex={-1}
-        autoComplete="off"
-        className="absolute -left-[9999px]"
-        aria-hidden="true"
-        {...form.register('website')}
-      />
-
-      <label className="flex items-start gap-2 text-xs leading-5 text-white/90 lg:col-span-4">
-        <input
-          type="checkbox"
-          className="mt-0.5 size-4 shrink-0 accent-white"
-          aria-invalid={Boolean(form.formState.errors.privacyConsent)}
-          {...form.register('privacyConsent')}
+      <div>
+        <FormLabel htmlFor="quick-phone" className="text-white" isRequired>
+          Số điện thoại
+        </FormLabel>
+        <Input
+          id="quick-phone"
+          required
+          type="tel"
+          inputMode="tel"
+          autoComplete="tel"
+          placeholder="Số điện thoại"
+          className="text-foreground border-0 bg-white"
+          aria-invalid={Boolean(form.formState.errors.phone)}
+          aria-describedby={form.formState.errors.phone ? 'quick-error' : undefined}
+          {...form.register('phone')}
         />
-        <span>
-          Tôi đồng ý{' '}
-          <Link
-            href="/chinh-sach-bao-mat"
-            target="_blank"
-            className="font-bold underline underline-offset-2"
-          >
-            chính sách bảo mật
-          </Link>{' '}
-          để được liên hệ tư vấn.
-        </span>
-      </label>
+      </div>
 
+      <div className="hidden" aria-hidden="true">
+        <label htmlFor="quick-website">Website</label>
+        <Input id="quick-website" tabIndex={-1} autoComplete="off" {...form.register('website')} />
+      </div>
       <Button
         type="submit"
         className="bg-[#10263f] px-5 hover:bg-[#172f4d]"
         disabled={form.formState.isSubmitting}
       >
         {form.formState.isSubmitting && <LoaderCircleIcon className="animate-spin" />}
-        {form.formState.isSubmitting ? 'Đang gửi...' : 'Đăng ký lắp đặt'}
+        {form.formState.isSubmitting ? 'Đang gửi...' : 'Gửi yêu cầu'}
       </Button>
 
-      {(form.formState.errors.address ||
-        form.formState.errors.district ||
-        form.formState.errors.phone ||
-        form.formState.errors.privacyConsent) && (
-        <p className="rounded-lg bg-white/95 px-3 py-2 text-xs font-semibold text-red-700 lg:col-span-4">
-          {form.formState.errors.address?.message ??
-            form.formState.errors.district?.message ??
-            form.formState.errors.phone?.message ??
-            form.formState.errors.privacyConsent?.message}
+      {firstError && (
+        <p
+          id="quick-error"
+          role="alert"
+          className="rounded-lg bg-white/95 px-3 py-2 text-xs font-semibold text-red-700 lg:col-span-4"
+        >
+          {firstError}
         </p>
       )}
 

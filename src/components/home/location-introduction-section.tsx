@@ -16,7 +16,7 @@ function LocationIntroductionSection({ market }: LocationIntroductionSectionProp
         <SectionHeading
           eyebrow="Thông tin khu vực"
           title={`Dịch vụ Viettel tại ${market.locationName}`}
-          description="Nội dung được biên soạn riêng theo phạm vi tiếp nhận của landing page này."
+          description="Chọn đúng phường, xã và cung cấp địa chỉ dự kiến để đầu mối kiểm tra khả năng cung cấp."
           align="left"
         />
         <div className="border-border bg-card rounded-2xl border p-5 sm:p-7">

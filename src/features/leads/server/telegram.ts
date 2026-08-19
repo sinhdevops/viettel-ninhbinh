@@ -11,7 +11,7 @@ interface TelegramLead {
   market: string;
   service: string;
   plan: string;
-  address: string;
+  address?: string;
   district: string;
   phone: string;
   landingPath?: string;
@@ -88,7 +88,7 @@ function buildTelegramMessage(lead: TelegramLead) {
     `<b>Khu vực website:</b> ${escapeHtml(lead.market)}`,
     `<b>Dịch vụ:</b> ${escapeHtml(lead.service)}`,
     `<b>Gói cước:</b> ${escapeHtml(lead.plan)}`,
-    `<b>Địa chỉ:</b> ${escapeHtml(lead.address)}`,
+    `<b>Địa chỉ:</b> ${lead.address ? escapeHtml(lead.address) : 'Chưa cung cấp'}`,
     `<b>Khu vực:</b> ${escapeHtml(lead.district)}`,
     `<b>Điện thoại:</b> <code>${escapeHtml(lead.phone)}</code>`,
     `<b>Thời gian:</b> ${escapeHtml(formatSubmittedAt(new Date()))}`,

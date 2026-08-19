@@ -52,10 +52,12 @@ export function getTrustPages(): Record<TrustPageSlug, TrustPageContent> {
         {
           id: 'quan-he',
           title: 'Quan hệ với Viettel',
-          paragraphs: [
+          paragraphs: compact([
             businessConfig.relationship,
-            'Người vận hành xác nhận có giấy ủy quyền. Thông tin nhận dạng nhạy cảm trên giấy tờ không được công khai trên website.',
-          ],
+            businessConfig.authorizationReference
+              ? 'Thông tin ủy quyền được đối chiếu theo mã/tham chiếu công bố bên dưới.'
+              : 'Người vận hành cho biết có giấy ủy quyền nhưng website chưa công bố mã tham chiếu. Website này không phải cổng thương mại điện tử chính thức của Viettel Telecom.',
+          ]),
           items: compact([
             businessConfig.authorizationReference &&
               `Mã/tham chiếu ủy quyền: ${businessConfig.authorizationReference}`,
@@ -73,6 +75,7 @@ export function getTrustPages(): Record<TrustPageSlug, TrustPageContent> {
           title: 'Nguyên tắc minh bạch',
           paragraphs: [
             'Giá, thiết bị, khuyến mại và thời gian lắp đặt cần được xác nhận theo địa chỉ và chính sách tại thời điểm đăng ký. Website không tự quyết định sự cố kỹ thuật hoặc nghiệp vụ của thuê bao đang hoạt động.',
+            'Gửi biểu mẫu chỉ là yêu cầu được liên hệ; không tự động tạo hợp đồng, thu phí hoặc bảo đảm hạ tầng có sẵn.',
           ],
         },
       ],
@@ -128,7 +131,7 @@ export function getTrustPages(): Record<TrustPageSlug, TrustPageContent> {
           id: 'du-lieu',
           title: 'Dữ liệu được thu thập',
           paragraphs: [
-            'Biểu mẫu thu số điện thoại, địa chỉ dự kiến lắp đặt, khu vực, dịch vụ/gói quan tâm và bằng chứng đồng ý. Hệ thống có thể xử lý dữ liệu kỹ thuật, nguồn truy cập và mã đo lường cần thiết.',
+            'Biểu mẫu thu số điện thoại, phường/xã, địa chỉ chi tiết nếu khách hàng tự nguyện nhập và dịch vụ hoặc gói quan tâm. Hệ thống có thể xử lý trang gửi yêu cầu, nguồn truy cập và mã đo lường khi các công cụ tương ứng được cấu hình.',
           ],
         },
         {
@@ -142,7 +145,7 @@ export function getTrustPages(): Record<TrustPageSlug, TrustPageContent> {
           id: 'chia-se',
           title: 'Lưu trữ và bên nhận',
           paragraphs: [
-            'Lead được chuyển tới kênh Telegram của người vận hành; website hiện không có cơ sở dữ liệu lead riêng. Dữ liệu có thể được chuyển cho bộ phận Viettel liên quan trong phạm vi cần thiết để hoàn tất yêu cầu.',
+            'Yêu cầu được chuyển tới kênh thông báo Telegram do người vận hành quản lý; website hiện không có cơ sở dữ liệu khách hàng riêng. Dữ liệu có thể được chuyển cho bộ phận Viettel liên quan trong phạm vi cần thiết để kiểm tra hạ tầng và hoàn tất yêu cầu.',
           ],
         },
         { id: 'thoi-han', title: 'Thời gian lưu', paragraphs: [businessConfig.dataRetention] },
@@ -174,7 +177,7 @@ export function getTrustPages(): Record<TrustPageSlug, TrustPageContent> {
           title: 'Vai trò website',
           paragraphs: [
             businessConfig.relationship,
-            'Gửi biểu mẫu là yêu cầu được liên hệ, không tự động tạo hợp đồng hoặc bảo đảm hạ tầng có sẵn.',
+            'Website không phải cổng thương mại điện tử chính thức của Viettel Telecom. Gửi biểu mẫu là yêu cầu được liên hệ, không tự động tạo hợp đồng, thu phí hoặc bảo đảm hạ tầng có sẵn.',
           ],
         },
         {
@@ -217,7 +220,7 @@ export function getTrustPages(): Record<TrustPageSlug, TrustPageContent> {
           id: 'chi-phi',
           title: 'Chi phí ban đầu',
           paragraphs: [
-            `Phí hòa mạng hiện được xác nhận: ${commercialPolicy.connectionFee ?? 'xác nhận khi tư vấn'}. Tổng chi phí còn phụ thuộc gói và số tháng thanh toán.`,
+            `Phí hòa mạng tham khảo từ ${commercialPolicy.connectionFee ?? 'mức được xác nhận khi tư vấn'}/thuê bao. Tổng chi phí còn phụ thuộc dịch vụ, thiết bị, địa chỉ, hình thức và số tháng thanh toán.`,
           ],
         },
         { id: 'thiet-bi', title: 'Thiết bị', paragraphs: [commercialPolicy.equipment] },
@@ -228,6 +231,9 @@ export function getTrustPages(): Record<TrustPageSlug, TrustPageContent> {
             commercialPolicy.promotion,
             commercialPolicy.promotionValidity &&
               `Thời gian áp dụng: ${commercialPolicy.promotionValidity}.`,
+            commercialPolicy.promotion && !commercialPolicy.promotionValidity
+              ? 'Thời gian và phạm vi áp dụng khuyến mại chưa được công bố trên website; chỉ áp dụng sau khi được xác nhận tại thời điểm đăng ký.'
+              : undefined,
             commercialPolicy.prepayment ??
               'Điều kiện trả trước được xác nhận theo gói tại thời điểm tư vấn.',
           ]),
@@ -252,7 +258,7 @@ export function getTrustPages(): Record<TrustPageSlug, TrustPageContent> {
           id: 'tiep-nhan',
           title: 'Kênh tiếp nhận',
           paragraphs: [
-            `Gọi hoặc nhắn Zalo số ${businessConfig.complaintContact}. Vui lòng nêu số điện thoại, địa chỉ và nội dung cần xử lý; không gửi mật khẩu hoặc OTP.`,
+            `Gọi hoặc nhắn Zalo số ${businessConfig.complaintContact}. Vui lòng nêu số điện thoại, địa chỉ và nội dung cần xử lý.`,
           ],
         },
         {

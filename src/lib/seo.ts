@@ -31,7 +31,7 @@ export function generateMetadata({
   title,
   description,
   path = '',
-  image,
+  image = '/images/viettel-social-share.jpg',
   noIndex = false,
   keywords = [],
   siteName = seoConfig.name,
@@ -42,20 +42,20 @@ export function generateMetadata({
   const facebookVerification = process.env.NEXT_PUBLIC_FB_DOMAIN_VERIFICATION;
 
   return {
-    title: {
-      default: title,
-      template: `%s | ${siteName}`,
-    },
+    title: { absolute: title },
     description,
     keywords,
     applicationName: siteName,
-    authors: [{ name: siteName, url }],
+    authors: [{ name: siteName, url: absoluteUrl('/') }],
     creator: siteName,
     publisher: siteName,
     category: 'technology',
     metadataBase: new URL(seoConfig.url),
     alternates: {
       canonical: url,
+      languages: {
+        'vi-VN': url,
+      },
     },
     openGraph: {
       type: 'website',
@@ -64,7 +64,19 @@ export function generateMetadata({
       title,
       description,
       siteName,
-      ...(ogImage ? { images: [{ url: ogImage, alt: title }] } : {}),
+      ...(ogImage
+        ? {
+            images: [
+              {
+                url: ogImage,
+                width: 1200,
+                height: 630,
+                alt: title,
+                type: 'image/jpeg',
+              },
+            ],
+          }
+        : {}),
     },
     twitter: {
       card: 'summary_large_image',
@@ -98,7 +110,7 @@ export function generateMetadata({
 }
 
 export function generateMarketMetadata(market: MarketConfig): Metadata {
-  const metadata = generateMetadata({
+  return generateMetadata({
     title: market.seo.title,
     description: market.seo.description,
     path: market.path,
@@ -107,11 +119,6 @@ export function generateMarketMetadata(market: MarketConfig): Metadata {
     siteName: market.siteName,
     noIndex: market.status === 'adsOnly',
   });
-
-  return {
-    ...metadata,
-    title: { absolute: market.seo.title },
-  };
 }
 
 /**

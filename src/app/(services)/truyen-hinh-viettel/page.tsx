@@ -1,4 +1,4 @@
-import { ServiceDetailPage } from '@/components/services/service-detail-page';
+import { TelevisionServicePage } from '@/components/services/television-service-page';
 import { servicePages } from '@/content/services';
 import { generateMetadata } from '@/lib/seo';
 
@@ -11,5 +11,5 @@ export const metadata = generateMetadata({
 });
 
 export default function TelevisionPage() {
-  return <ServiceDetailPage content={content} />;
+  return <TelevisionServicePage />;
 }

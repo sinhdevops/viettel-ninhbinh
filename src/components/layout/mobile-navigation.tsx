@@ -15,7 +15,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet';
-import { getMarketHashHref, type MarketConfig } from '@/config/markets';
+import type { MarketConfig } from '@/config/markets';
 import { siteConfig } from '@/config/site';
 
 import { SiteBrand } from './site-brand';
@@ -50,7 +50,7 @@ function MobileNavigation({ market }: MobileNavigationProps) {
             {siteConfig.navigation.map((item, index) => (
               <SheetClose key={item.href} asChild>
                 <Link
-                  href={getMarketHashHref(market, item.href)}
+                  href={item.href}
                   className="group text-foreground hover:bg-accent hover:text-accent-foreground focus-visible:bg-accent focus-visible:text-accent-foreground flex min-h-14 items-center gap-3 rounded-xl px-3 text-[0.9375rem] font-bold transition-colors outline-none"
                 >
                   <span className="bg-secondary text-muted-foreground group-hover:bg-primary group-hover:text-primary-foreground group-focus-visible:bg-primary group-focus-visible:text-primary-foreground grid size-8 shrink-0 place-items-center rounded-lg text-xs font-extrabold transition-colors">

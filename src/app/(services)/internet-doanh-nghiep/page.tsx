@@ -1,4 +1,4 @@
-import { ServiceDetailPage } from '@/components/services/service-detail-page';
+import { BusinessInternetPage } from '@/components/services/business-internet-page';
 import { servicePages } from '@/content/services';
 import { generateMetadata } from '@/lib/seo';
 
@@ -10,6 +10,6 @@ export const metadata = generateMetadata({
   image: '/images/viettel-social-share.jpg',
 });
 
-export default function BusinessInternetPage() {
-  return <ServiceDetailPage content={content} />;
+export default function BusinessInternetRoute() {
+  return <BusinessInternetPage />;
 }
